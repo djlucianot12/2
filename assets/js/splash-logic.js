@@ -2,44 +2,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const splashScreen = document.getElementById('splash-screen');
     const progressBar = document.querySelector('.splash-screen .progress-bar');
     const progressPercentageText = document.querySelector('.splash-screen .progress-percentage');
-    const mainContent = document.getElementById('wrapper'); // Asumiendo que este es el contenedor principal
-    const loadingScreen = document.getElementById('loading'); // Pantalla de carga original
+    const mainContent = document.getElementById('wrapper');
+    const loadingScreen = document.getElementById('loading');
+    const splashLoadingText = document.querySelector('.splash-loading-text');
 
-    if (!splashScreen || !progressBar || !progressPercentageText || !mainContent || !loadingScreen) {
-        console.error('Elementos de la splash screen, porcentaje o contenido principal no encontrados.');
-        // Si no se encuentran los elementos, se intenta ocultar la splash y mostrar el contenido igualmente.
+    if (!splashScreen || !progressBar || !progressPercentageText || !mainContent || !loadingScreen || !splashLoadingText) {
+        console.error('Uno o más elementos de la splash screen o contenido principal no fueron encontrados.');
         if(splashScreen) splashScreen.style.display = 'none';
-        if(loadingScreen) loadingScreen.style.display = 'none'; // Ocultar también la carga original si existe
+        if(loadingScreen) loadingScreen.style.display = 'none';
         if(mainContent) mainContent.style.opacity = '1';
         return;
     }
 
     let progress = 0;
-    const intervalTime = 30; // Milisegundos para cada incremento de progreso
-    const totalDuration = 3000; // Duración total de la barra de carga en milisegundos
+    const intervalTime = 30;
+    const totalDuration = 3000;
     const progressIncrement = (intervalTime / totalDuration) * 100;
 
-    // Ocultar contenido principal y pantalla de carga original inicialmente
     mainContent.style.opacity = '0';
     mainContent.style.transition = 'opacity 0.5s ease-in-out';
-    loadingScreen.style.display = 'none'; // Asegurarse que la original está oculta
-    progressPercentageText.textContent = '0%';
+    loadingScreen.style.display = 'none';
+    progressPercentageText.textContent = '0 por ciento';
+
+    // Calcular el delay para el texto "Entrando al estudio..." basado en la animación del logo
+    // Esta es una estimación, idealmente los delays de CSS se coordinarían aquí si fueran dinámicos
+    // o se asumiría que el CSS ya tiene los delays correctos.
+    // Por ahora, el CSS maneja los delays de aparición de logo y texto.
+    // El delay de la barra de progreso y el porcentaje se basa en el CSS.
+
+    const progressBarAnimationDelay = parseFloat(getComputedStyle(document.querySelector('.progress-bar-container')).animationDelay) * 1000;
+    const percentageAnimationDelay = parseFloat(getComputedStyle(progressPercentageText).animationDelay) * 1000;
+
+    setTimeout(() => {
+        progressPercentageText.style.opacity = '1'; // Asegurar visibilidad si la animación CSS no lo hace.
+    }, percentageAnimationDelay);
 
 
     const progressInterval = setInterval(() => {
         progress += progressIncrement;
-        const currentDisplayProgress = Math.min(Math.floor(progress), 100); // No mostrar más de 100%
+        const currentDisplayProgress = Math.min(Math.floor(progress), 100);
 
         if (progress <= 100) {
             progressBar.style.width = `${currentDisplayProgress}%`;
             progressPercentageText.textContent = `${currentDisplayProgress} por ciento`;
         } else {
             clearInterval(progressInterval);
-            progressBar.style.width = '100%'; // Asegurar que llegue al 100%
+            progressBar.style.width = '100%';
             progressPercentageText.textContent = '100 por ciento';
 
-
-            // Iniciar transición para ocultar splash screen y mostrar contenido
+            splashScreen.style.transition = 'opacity 0.5s ease-out, visibility 0.5s ease-out';
             splashScreen.style.transition = 'opacity 0.5s ease-out, visibility 0.5s ease-out';
             splashScreen.style.opacity = '0';
             splashScreen.style.visibility = 'hidden'; // Para removerlo del flujo y no interferir

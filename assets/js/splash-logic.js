@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let progress = 0;
     const intervalTime = 30;
-    const totalDuration = 9000; // Reducida a 9000ms (11000 - 2000)
+    const totalDuration = 7000; // Reducida a 7000ms (9000 - 2000)
     const progressIncrement = (intervalTime / totalDuration) * 100;
 
     // Estilos iniciales para la transición de inmersión del contenido principal

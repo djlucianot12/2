@@ -32,43 +32,46 @@
     letter-spacing: 0.02em;
     margin-bottom: 40px; /* Aumentar separación inferior */
     text-align: center; /* Asegurar que el contenedor esté centrado si tiene ancho fijo */
+    /* Opacity y transform ya no son necesarios aquí, se manejan por JS si es necesario un fade-in inicial del contenedor */
 }
 
-.splash-logo span {
-    display: inline-block; /* Necesario para transformar letras individualmente */
+/* Ya no se necesitan spans individuales para la animación de escritura letra por letra con JS */
+/*.splash-logo span {
+    display: inline-block;
     opacity: 0;
     transform: translateY(20px);
     animation: logoLetterAppear 0.5s ease forwards;
-}
+}*/
 
 .splash-loading-text {
-    font-size: 1.2rem;
-    margin-top: 20px; /* Separación del logo */
-    margin-bottom: 15px; /* Reducir separación de la barra de progreso */
+    font-size: 1.6rem; /* Aumentar tamaño */
+    margin-top: 25px;
+    margin-bottom: 20px; /* Ajustar para acercar a la barra */
     color: #ccc;
-    text-align: center; /* Asegurar centrado */
+    text-align: center;
 }
 
-.splash-loading-text span {
+/* Ya no se necesitan spans individuales para la animación de escritura letra por letra con JS */
+/*.splash-loading-text span {
     display: inline-block;
     opacity: 0;
     transform: translateY(15px);
     animation: loadingTextLetterAppear 0.4s ease forwards;
-}
+}*/
 
-@keyframes logoLetterAppear {
+/* @keyframes logoLetterAppear {
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
+} */
 
-@keyframes loadingTextLetterAppear {
+/* @keyframes loadingTextLetterAppear {
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
+} */
 
 .progress-bar-container {
     width: 50%;
@@ -80,7 +83,6 @@
     margin-top: 70px; /* Aún más abajo */
     margin-bottom: 40px; /* Mayor separación inferior para el porcentaje si se mueve debajo */
     opacity: 0; /* Controlado por JS */
-    /* Eliminada animation y animation-delay */
     position: relative;
     transition: opacity 0.5s ease-out; /* Para aparición suave desde JS */
 }
@@ -101,7 +103,6 @@
     font-size: 1.2rem;
     color: #fff;
     opacity: 0; /* Controlado por JS */
-    /* Eliminada animation y animation-delay */
     white-space: nowrap;
     transition: opacity 0.5s ease-out; /* Para aparición suave desde JS */
 }

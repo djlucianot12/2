@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let progress = 0;
     const intervalTime = 30;
-    const totalDuration = 7000;
+    const totalDuration = 11000; // Aumentada a 11000ms (7000 + 4000)
     const progressIncrement = (intervalTime / totalDuration) * 100;
 
     mainContent.style.opacity = '0';
@@ -27,46 +27,53 @@ document.addEventListener('DOMContentLoaded', () => {
     mainContent.style.transformOrigin = 'center center';
 
     loadingScreen.style.display = 'none';
-    progressPercentageText.textContent = '0 por ciento';
+    progressPercentageText.textContent = '0%'; // Cambiado a formato X%
     progressBarContainer.style.opacity = '0'; // Iniciar invisible
     progressPercentageText.style.opacity = '0'; // Iniciar invisible
 
     // Determinar cuándo deben aparecer la barra y el porcentaje
-    // Esto se basa en la duración de las animaciones del logo y del texto de carga.
-    // Asumimos que los delays en CSS son la fuente de verdad para la duración de aparición de letras.
-    let logoDuration = 0;
-    const logoSpans = logo.querySelectorAll('span');
-    if (logoSpans.length > 0) {
-        const lastLogoSpan = logoSpans[logoSpans.length - 1];
-        // animation-delay + animation-duration
-        logoDuration = (parseFloat(getComputedStyle(lastLogoSpan).animationDelay) + parseFloat(getComputedStyle(lastLogoSpan).animationDuration)) * 1000;
-    } else { // Fallback si no hay spans (texto no dividido)
-        logoDuration = (parseFloat(getComputedStyle(logo).animationDelay) || 0 + parseFloat(getComputedStyle(logo).animationDuration) || 0) * 1000;
-        if (logoDuration === 0) logoDuration = 2500; // Estimación si no hay animación CSS directa en el contenedor
-    }
+    let logoAnimationTotalDuration = 0;
+    if (logo && logo.textContent.length > 0) {
+        // Asumiendo que la animación de JS en splash-animation.js usa 80ms por caracter + 500ms de delay inicial
+        // y 0.07s (70ms) por letra para la animación CSS que se aplica desde JS.
+        // const logoBaseDelay = 500; // Delay inicial de la animación del logo
+        // const logoCharAnimDuration = 500; // Duración de la animación de cada letra
+        // const logoCharAppearStagger = 70; // Stagger entre letras
+        // logoAnimationTotalDuration = logoBaseDelay + ((logo.textContent.trim().length -1) * logoCharAppearStagger) + logoCharAnimDuration;
 
-    let textAnimationStartTime = logoDuration + 200; // Pequeño buffer después del logo
-    let textDuration = 0;
-    const textSpans = splashLoadingText.querySelectorAll('span');
-    if (textSpans.length > 0) {
-        const lastTextSpan = textSpans[textSpans.length - 1];
-        textDuration = (parseFloat(getComputedStyle(lastTextSpan).animationDelay) + parseFloat(getComputedStyle(lastTextSpan).animationDuration)) * 1000;
-         // El delay ya está aplicado en el CSS relativo al inicio, necesitamos el delay real desde el inicio de la página.
-        // El JS en splash-animation.js ya calcula esto de forma más directa.
-        // Aquí recalculamos o asumimos que splash-animation.js lo hizo bien.
-        // Para simplificar, tomaremos el delay del CSS del último span y sumaremos su duración.
-        // Este es el punto final de la animación del texto.
-        const individualTextDelay = parseFloat(getComputedStyle(textSpans[0]).animationDelay) * 1000; // Delay del primer span del texto
-        textAnimationStartTime = individualTextDelay; // El JS ya calcula el delay escalonado, tomamos el del primer span
-        textDuration = (parseFloat(getComputedStyle(lastTextSpan).animationDelay) + parseFloat(getComputedStyle(lastTextSpan).animationDuration)) * 1000 - textAnimationStartTime;
-
-
+        // Simplificación basada en cómo se configuró la animación en splash-animation.js
+        // animation = `logoLetterAppear 0.5s ease forwards ${0.5 + index * 0.07}s`;
+        // El último span empieza en 0.5 + (length-1)*0.07 y dura 0.5s
+        const logoCharCount = logo.textContent.trim().replace(/\s/g, '').length; // Contar solo no espacios para el stagger
+        if (logoCharCount > 0) {
+            logoAnimationTotalDuration = (0.5 * 1000) + ((logoCharCount - 1) * (0.07 * 1000)) + (0.5 * 1000);
+        } else {
+             logoAnimationTotalDuration = 2500; // Fallback si no hay texto para animar
+        }
     } else {
-        textDuration = (parseFloat(getComputedStyle(splashLoadingText).animationDelay) || 0 + parseFloat(getComputedStyle(splashLoadingText).animationDuration) || 0) * 1000;
-        if (textDuration === 0 && logo.textContent.length > 0) textDuration = 1500; // Estimación
+        logoAnimationTotalDuration = 2500; // Fallback
     }
 
-    const barAndPercentageAppearTime = textAnimationStartTime + textDuration + 200; // Buffer después del texto
+    let textAnimationTotalDuration = 0;
+    const loadingTextContent = splashLoadingText.textContent.trim();
+    if (loadingTextElement && loadingTextContent.length > 0) {
+        // Asumiendo que la animación de JS en splash-animation.js usa 80ms por caracter
+        // y un delay adicional de 200ms después del logo.
+        // const textBaseDelay = logoAnimationTotalDuration + 200;
+        // const textCharAnimDuration = 400; // Duración de la animación de cada letra del texto de carga
+        // const textCharAppearStagger = 60;
+        // textAnimationTotalDuration = textBaseDelay + ((loadingTextContent.length-1) * textCharAppearStagger) + textCharAnimDuration;
+        const textCharCount = loadingTextContent.replace(/\s/g, '').length;
+         if (textCharCount > 0) {
+            textAnimationTotalDuration = (logoAnimationTotalDuration + 200) + ((textCharCount - 1) * (0.06 * 1000)) + (0.4 * 1000);
+        } else {
+            textAnimationTotalDuration = logoAnimationTotalDuration + 1500; // Fallback
+        }
+    } else {
+        textAnimationTotalDuration = logoAnimationTotalDuration + 1500; // Fallback
+    }
+
+    const barAndPercentageAppearTime = textAnimationTotalDuration + 200; // Buffer después del texto
 
     setTimeout(() => {
         progressBarContainer.style.opacity = '1';
@@ -78,11 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (progress <= 100) {
                 progressBar.style.width = `${currentDisplayProgress}%`;
-                progressPercentageText.textContent = `${currentDisplayProgress} por ciento`;
+                progressPercentageText.textContent = `${currentDisplayProgress}%`; // Cambiado a formato X%
             } else {
                 clearInterval(progressInterval);
                 progressBar.style.width = '100%';
-                progressPercentageText.textContent = '100 por ciento';
+                progressPercentageText.textContent = '100%'; // Cambiado a formato X%
 
                 splashScreen.style.opacity = '0';
                 splashScreen.style.transform = 'scale(1.3)';

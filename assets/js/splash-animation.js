@@ -1,77 +1,67 @@
 document.addEventListener('DOMContentLoaded', () => {
     const particlesContainer = document.querySelector('.splash-particles');
-    if (!particlesContainer) return;
-
-    const numberOfParticles = 80; // Aumentado a 80 partículas
-
-    for (let i = 0; i < numberOfParticles; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-
-        // Posición aleatoria
-        const x = Math.random() * 100; // Porcentaje del ancho
-        const y = Math.random() * 100; // Porcentaje de la altura
-        particle.style.left = `${x}%`;
-        particle.style.top = `${y}%`;
-
-        // Tamaño aleatorio
-        const size = Math.random() * 5 + 2; // Entre 2px y 7px
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-
-        // Retraso de animación aleatorio para efecto escalonado
-        const delay = Math.random() * 3; // Retraso hasta 3 segundos
-        particle.style.animationDelay = `${delay}s`;
-
-        // Duración de la animación 'twinkle' aleatoria para más variedad
-        const twinkleDuration = Math.random() * 2 + 2; // Entre 2s y 4s
-        particle.style.animationDuration = `0.3s, ${twinkleDuration}s`; // fadeInParticle duration from CSS
-
-
-        particlesContainer.appendChild(particle);
+    if (particlesContainer) {
+        const numberOfParticles = 80;
+        for (let i = 0; i < numberOfParticles; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            particle.style.left = `${x}%`;
+            particle.style.top = `${y}%`;
+            const size = Math.random() * 5 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            const delay = Math.random() * 3;
+            particle.style.animationDelay = `${delay}s`;
+            const twinkleDuration = Math.random() * 2 + 2;
+            particle.style.animationDuration = `0.3s, ${twinkleDuration}s`;
+            particlesContainer.appendChild(particle);
+        }
     }
 
-    // Animación de aparición secuencial de letras para el logo
-    const logo = document.querySelector('.splash-logo');
-    let logoAnimationDuration = 0;
-    if (logo) {
-        const text = logo.textContent.trim();
-        const logoChars = text.split('');
-        logo.innerHTML = ''; // Limpiar contenido original
-        logoChars.forEach((char, index) => {
-            const span = document.createElement('span');
-            if (char === ' ') {
-                span.innerHTML = '&nbsp;';
-                span.style.opacity = '1';
+    function typeTextEffect(element, text, charDelay, callback) {
+        if (!element) {
+            if (callback) callback();
+            return 0;
+        }
+        element.innerHTML = ''; // Limpiar contenido previo
+        let i = 0;
+        const typingInterval = setInterval(() => {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
             } else {
-                span.textContent = char;
-                span.style.opacity = '0';
-                span.style.transform = 'translateY(20px)';
-                span.style.animation = `logoLetterAppear 0.5s ease forwards ${0.5 + index * 0.07}s`;
+                clearInterval(typingInterval);
+                if (callback) callback();
             }
-            logo.appendChild(span);
-        });
-        logoAnimationDuration = 0.5 + (logoChars.length -1) * 0.07 + 0.5; // Duración total animación logo
+        }, charDelay);
+        return text.length * charDelay; // Devuelve la duración estimada de la animación
     }
 
-    // Animación de aparición secuencial para "Entrando al estudio..."
-    const loadingText = document.querySelector('.splash-loading-text');
-    if (loadingText) {
-        const text = loadingText.textContent.trim();
-        loadingText.innerHTML = ''; // Limpiar contenido original
-        text.split('').forEach((char, index) => {
-            const span = document.createElement('span');
-            if (char === ' ') {
-                span.innerHTML = '&nbsp;';
-                span.style.opacity = '1';
-            } else {
-                span.textContent = char;
-                span.style.opacity = '0';
-                span.style.transform = 'translateY(15px)';
-                // Iniciar después de la animación del logo
-                span.style.animation = `loadingTextLetterAppear 0.4s ease forwards ${logoAnimationDuration + 0.2 + index * 0.06}s`;
-            }
-            loadingText.appendChild(span);
-        });
-    }
+    const logoElement = document.querySelector('.splash-logo');
+    const loadingTextElement = document.querySelector('.splash-loading-text');
+
+    const logoText = "LT STUDIO DESING";
+    const loadingText = "ENTRANDO AL ESTUDIO";
+    const charDisplayDelay = 80; // ms por caracter
+
+    // Iniciar animación del logo
+    const logoAnimationDuration = typeTextEffect(logoElement, logoText, charDisplayDelay, () => {
+        // Iniciar animación del texto de carga después de que el logo termine + un pequeño delay
+        setTimeout(() => {
+            typeTextEffect(loadingTextElement, loadingText, charDisplayDelay, () => {
+                // Ambas animaciones de texto han terminado
+                // La lógica de la barra de progreso en splash-logic.js se activará después
+            });
+        }, 200); // 200ms de pausa entre logo y texto de carga
+    });
+
+    // Pasar la duración total de las animaciones de texto a splash-logic.js
+    // Esto se hace para que splash-logic.js sepa cuándo empezar la barra de progreso.
+    // Se usa un evento personalizado o una variable global si es necesario,
+    // por ahora, splash-logic.js tendrá que tener una estimación o ser modificado
+    // para esperar una señal o un tiempo fijo que considere estas animaciones.
+    // La forma más simple es que splash-logic.js tenga su propio delay inicial grande
+    // que cubra estas animaciones de texto.
 });

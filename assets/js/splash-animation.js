@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const particlesContainer = document.querySelector('.splash-particles');
     if (!particlesContainer) return;
 
-    const numberOfParticles = 50; // Número de partículas
+    const numberOfParticles = 80; // Aumentado a 80 partículas
 
     for (let i = 0; i < numberOfParticles; i++) {
         const particle = document.createElement('div');

@@ -24,34 +24,60 @@
 }
 
 .splash-logo {
-    font-family: 'butler_medium', serif; /* Usando la fuente definida */
-    font-size: 3rem; /* Tamaño de fuente considerable */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Fuente minimalista y elegante */
+    font-weight: 300; /* Peso más ligero */
+    font-size: 2.8rem; /* Ligeramente ajustado */
+    letter-spacing: 0.05em; /* Un poco más de espaciado */
     margin-bottom: 30px;
     opacity: 0;
     animation: fadeInLogo 1s ease-out forwards;
     animation-delay: 0.5s;
 }
 
+.splash-loading-text {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #ccc;
+    opacity: 0;
+    animation: fadeInLogo 1s ease-out forwards; /* Reutilizar animación del logo */
+    animation-delay: 0.8s; /* Un poco después del logo */
+}
+
 .progress-bar-container {
-    width: 60%;
-    max-width: 400px;
-    height: 10px;
-    background-color: #333;
-    border-radius: 5px;
+    width: 50%; /* Más delgada */
+    max-width: 300px; /* Máximo más pequeño */
+    height: 8px; /* Más delgada */
+    background-color: #222; /* Fondo más oscuro */
+    border-radius: 4px;
     overflow: hidden;
-    margin-bottom: 20px;
+    margin-top: 50px; /* Más abajo */
+    margin-bottom: 10px; /* Menos margen inferior */
     opacity: 0;
     animation: fadeInProgressBar 1s ease-out forwards;
     animation-delay: 1s;
+    position: relative; /* Para posicionar el porcentaje */
 }
 
 .progress-bar {
     width: 0%;
     height: 100%;
-    background-color: #fff;
-    border-radius: 5px;
-    transition: width 0.5s ease-in-out; /* Animación para la barra */
+    background: linear-gradient(90deg, #aaa, #fff); /* Gradiente sutil */
+    border-radius: 4px;
+    transition: width 0.3s ease-out; /* Transición más suave */
 }
+
+.progress-percentage {
+    position: absolute;
+    top: -25px; /* Encima de la barra */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    color: #aaa;
+    opacity: 0;
+    animation: fadeInLogo 1s ease-out forwards; /* Reutilizar animación */
+    animation-delay: 1.2s; /* Después de la barra */
+}
+
 
 .splash-particles {
     position: absolute;
@@ -68,8 +94,9 @@
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
     opacity: 0;
-    animation: fadeInParticle 0.5s forwards,
-                 twinkle 3s infinite ease-in-out;
+    /* Ajuste de duración para fadeInParticle y twinkle */
+    animation: fadeInParticle 0.3s forwards, /* Más rápido */
+                 twinkle 1.5s infinite ease-in-out; /* Más rápido */
 }
 
 @keyframes fadeInLogo {
@@ -83,12 +110,12 @@
 }
 
 @keyframes fadeInParticle {
-    to { opacity: 1; }
+    to { opacity: 0.7; } /* Opacidad máxima ligeramente menor para un efecto más sutil */
 }
 
 @keyframes twinkle {
-    0%, 100% { opacity: 0.2; transform: scale(0.8); }
-    50% { opacity: 0.8; transform: scale(1.2); }
+    0%, 100% { opacity: 0.1; transform: scale(0.7); } /* Más sutil */
+    50% { opacity: 0.7; transform: scale(1); } /* Menos pronunciado */
 }
 
 /* Ajustes para responsividad si es necesario */

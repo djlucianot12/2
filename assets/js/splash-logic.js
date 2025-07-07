@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     const splashScreen = document.getElementById('splash-screen');
     const progressBar = document.querySelector('.splash-screen .progress-bar');
+    const progressPercentageText = document.querySelector('.splash-screen .progress-percentage');
     const mainContent = document.getElementById('wrapper'); // Asumiendo que este es el contenedor principal
     const loadingScreen = document.getElementById('loading'); // Pantalla de carga original
 
-    if (!splashScreen || !progressBar || !mainContent || !loadingScreen) {
-        console.error('Elementos de la splash screen o contenido principal no encontrados.');
+    if (!splashScreen || !progressBar || !progressPercentageText || !mainContent || !loadingScreen) {
+        console.error('Elementos de la splash screen, porcentaje o contenido principal no encontrados.');
         // Si no se encuentran los elementos, se intenta ocultar la splash y mostrar el contenido igualmente.
         if(splashScreen) splashScreen.style.display = 'none';
         if(loadingScreen) loadingScreen.style.display = 'none'; // Ocultar también la carga original si existe
@@ -22,14 +23,21 @@ document.addEventListener('DOMContentLoaded', () => {
     mainContent.style.opacity = '0';
     mainContent.style.transition = 'opacity 0.5s ease-in-out';
     loadingScreen.style.display = 'none'; // Asegurarse que la original está oculta
+    progressPercentageText.textContent = '0%';
+
 
     const progressInterval = setInterval(() => {
         progress += progressIncrement;
+        const currentDisplayProgress = Math.min(Math.floor(progress), 100); // No mostrar más de 100%
+
         if (progress <= 100) {
-            progressBar.style.width = `${progress}%`;
+            progressBar.style.width = `${currentDisplayProgress}%`;
+            progressPercentageText.textContent = `${currentDisplayProgress}%`;
         } else {
             clearInterval(progressInterval);
             progressBar.style.width = '100%'; // Asegurar que llegue al 100%
+            progressPercentageText.textContent = '100%';
+
 
             // Iniciar transición para ocultar splash screen y mostrar contenido
             splashScreen.style.transition = 'opacity 0.5s ease-out, visibility 0.5s ease-out';

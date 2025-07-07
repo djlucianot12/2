@@ -26,14 +26,14 @@
 }
 
 .splash-logo {
-    font-family: 'Assistant', sans-serif; /* Fuente de los proyectos, fallback a sans-serif genérico */
-    font-size: 4.5rem; /* Tamaño de fuente considerablemente más grande */
-    font-weight: 300; /* Un peso ligero si está disponible para Assistant, o normal */
+    font-family: 'butler_medium', serif; /* Cambiado a butler_medium */
+    font-size: 4.5rem; /* Mantener tamaño grande, se puede ajustar si es necesario */
+    font-weight: normal; /* butler_medium ya tiene un peso definido, 'normal' o 500 suele ser el medio */
     letter-spacing: 0.02em;
-    margin-bottom: 40px; /* Aumentar separación inferior */
+    margin-bottom: 40px;
     text-align: center;
-    opacity: 0; /* Iniciar oculto, JS lo hará visible */
-    transition: opacity 0.3s ease-in; /* Para un fade-in suave al empezar a escribir */
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
 }
 
 
@@ -70,7 +70,7 @@
     background-color: #222;
     border-radius: 0px !important; /* Forzar bordes cuadrados */
     overflow: hidden;
-    margin-top: 100px; /* Aumentado para bajarlo más */
+    margin-top: 120px; /* Aumentado para bajarlo más */
     margin-bottom: 40px;
     opacity: 0; /* Controlado por JS */
     position: relative;
@@ -95,6 +95,7 @@
     opacity: 0; /* Controlado por JS */
     white-space: nowrap;
     transition: opacity 0.5s ease-out; /* Para aparición suave desde JS */
+    /* border: 1px solid red; */ /* Para depuración de visibilidad */
 }
 
 
@@ -151,8 +152,7 @@
     }
     .progress-bar-container {
         width: 70%;
-        margin-top: 40px;
-        /* Eliminado animation-delay */
+        margin-top: 60px; /* Ajustado para móvil */
     }
     .progress-percentage {
         font-size: 1rem;
@@ -163,7 +163,6 @@
         right: auto;
         width: auto;
         text-align: center;
-        /* Eliminado animation-delay */
     }
 }
 
@@ -173,6 +172,7 @@
     }
      .progress-bar-container {
         width: 80%;
+        margin-top: 50px; /* Ajustado para móvil muy pequeño */
     }
     .progress-percentage {
         font-size: 0.9rem;

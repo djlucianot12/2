@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let progress = 0;
     const intervalTime = 30;
-    const totalDuration = 9000; // Reducida a 9000ms (11000 - 2000)
+    const totalDuration = 5000; // Reducida a 5000ms (7000 - 2000)
     const progressIncrement = (intervalTime / totalDuration) * 100;
 
     // Estilos iniciales para la transición de inmersión del contenido principal
@@ -34,10 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Escuchar el evento personalizado que indica que las animaciones de texto han terminado
     document.addEventListener('textAnimationsComplete', () => {
+        console.log('Evento textAnimationsComplete recibido en splash-logic.js'); // DEBUG
         // Pequeño delay para asegurar que las animaciones de texto hayan finalizado visualmente
         setTimeout(() => {
+            console.log('Haciendo visible la barra de progreso y el porcentaje.'); // DEBUG
             progressBarContainer.style.opacity = '1';
             progressPercentageText.style.opacity = '1';
+            console.log('Progress percentage element:', progressPercentageText); // DEBUG
 
             const progressInterval = setInterval(() => {
                 progress += progressIncrement;
@@ -46,10 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (progress <= 100) {
                     progressBar.style.width = `${currentDisplayProgress}%`;
                     progressPercentageText.textContent = `${currentDisplayProgress}%`;
+                    console.log(`Actualizando porcentaje TEXT a: ${currentDisplayProgress}%`, progressPercentageText.textContent); // DEBUG
                 } else {
                     clearInterval(progressInterval);
                     progressBar.style.width = '100%';
                     progressPercentageText.textContent = '100%';
+                    console.log('Porcentaje finalizado en 100%'); // DEBUG
 
                     // Iniciar transición de inmersión
                     splashScreen.style.opacity = '0';

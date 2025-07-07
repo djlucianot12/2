@@ -24,23 +24,34 @@
 }
 
 .splash-logo {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Fuente minimalista y elegante */
-    font-weight: 300; /* Peso más ligero */
-    font-size: 2.8rem; /* Ligeramente ajustado */
-    letter-spacing: 0.05em; /* Un poco más de espaciado */
-    margin-bottom: 30px;
-    opacity: 0;
-    animation: fadeInLogo 1s ease-out forwards;
-    animation-delay: 0.5s;
+    font-family: 'Assistant', sans-serif; /* Fuente de los proyectos, fallback a sans-serif genérico */
+    font-size: 4.5rem; /* Tamaño de fuente considerablemente más grande */
+    font-weight: 300; /* Un peso ligero si está disponible para Assistant, o normal */
+    letter-spacing: 0.02em;
+    margin-bottom: 40px; /* Aumentar separación inferior */
+    opacity: 1; /* La animación de escritura controlará la aparición */
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    animation: typingEffectLogo 2s steps(40, end) 0.5s forwards;
 }
 
 .splash-loading-text {
     font-size: 1.2rem;
-    margin-bottom: 15px;
+    margin-top: 20px; /* Aumentar separación del logo */
+    margin-bottom: 30px; /* Aumentar separación de la barra */
     color: #ccc;
-    opacity: 0;
-    animation: fadeInLogo 1s ease-out forwards; /* Reutilizar animación del logo */
-    animation-delay: 0.8s; /* Un poco después del logo */
+    opacity: 1; /* La animación de escritura controlará la aparición */
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    animation: typingEffectLoadingText 1.5s steps(30, end) 2.6s forwards; /* Delay para que inicie después del logo (2s + 0.5s delay logo + 0.1s buffer) */
+}
+
+/* Animación de escritura para el texto "Entrando al estudio..." */
+@keyframes typingEffectLoadingText {
+    from { width: 0; }
+    to { width: 100%; } /* El ancho se ajustará al contenido del texto */
 }
 
 .progress-bar-container {
@@ -55,27 +66,29 @@
     opacity: 0;
     animation: fadeInProgressBar 1s ease-out forwards;
     animation-delay: 1s;
-    position: relative; /* Para posicionar el porcentaje */
+    position: relative;
 }
 
 .progress-bar {
     width: 0%;
     height: 100%;
-    background: linear-gradient(90deg, #aaa, #fff); /* Gradiente sutil */
-    border-radius: 4px;
-    transition: width 0.3s ease-out; /* Transición más suave */
+    background: linear-gradient(90deg, #ccc, #fff); /* Gradiente un poco más claro */
+    border-radius: 0px; /* Cuadrado */
+    transition: width 0.3s ease-out;
 }
 
 .progress-percentage {
     position: absolute;
-    top: -25px; /* Encima de la barra */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1rem;
-    color: #aaa;
+    top: 50%;
+    right: -80px; /* Posicionar a la derecha de la barra */
+    transform: translateY(-50%);
+    font-size: 1rem; /* Tamaño consistente */
+    color: #ccc; /* Color más visible que #aaa */
     opacity: 0;
-    animation: fadeInLogo 1s ease-out forwards; /* Reutilizar animación */
-    animation-delay: 1.2s; /* Después de la barra */
+    animation: fadeInLogo 1s ease-out forwards;
+    animation-delay: 1.2s;
+    width: 70px; /* Ancho fijo para evitar saltos de layout */
+    text-align: left; /* Alineación del texto */
 }
 
 
@@ -97,6 +110,12 @@
     /* Ajuste de duración para fadeInParticle y twinkle */
     animation: fadeInParticle 0.3s forwards, /* Más rápido */
                  twinkle 1.5s infinite ease-in-out; /* Más rápido */
+}
+
+/* Animación de escritura para el logo */
+@keyframes typingEffectLogo {
+    from { width: 0; }
+    to { width: 100%; } /* El ancho se ajustará al contenido del texto */
 }
 
 @keyframes fadeInLogo {

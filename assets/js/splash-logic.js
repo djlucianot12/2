@@ -32,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (progress <= 100) {
             progressBar.style.width = `${currentDisplayProgress}%`;
-            progressPercentageText.textContent = `${currentDisplayProgress}%`;
+            progressPercentageText.textContent = `${currentDisplayProgress} por ciento`;
         } else {
             clearInterval(progressInterval);
             progressBar.style.width = '100%'; // Asegurar que llegue al 100%
-            progressPercentageText.textContent = '100%';
+            progressPercentageText.textContent = '100 por ciento';
 
 
             // Iniciar transición para ocultar splash screen y mostrar contenido

@@ -20,48 +20,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function typeTextEffect(element, text, charDelay, callback) {
-        if (!element) {
-            if (callback) callback();
-            return 0;
-        }
-        element.innerHTML = ''; // Limpiar contenido previo
-        let i = 0;
-        const typingInterval = setInterval(() => {
-            if (i < text.length) {
-                element.innerHTML += text.charAt(i);
-                i++;
-            } else {
-                clearInterval(typingInterval);
-                if (callback) callback();
-            }
-        }, charDelay);
-        return text.length * charDelay; // Devuelve la duración estimada de la animación
-    }
-
     const logoElement = document.querySelector('.splash-logo');
     const loadingTextElement = document.querySelector('.splash-loading-text');
 
     const logoText = "LT STUDIO DESING";
     const loadingText = "ENTRANDO AL ESTUDIO";
-    const charDisplayDelay = 80; // ms por caracter
+    const charDisplayDelay = 80; // ms por caracter, ajustar para velocidad "rápida y natural"
+    const initialDelayLogo = 500; // ms antes de que empiece la animación del logo
+    const delayBetweenAnimations = 200; // ms de pausa entre la animación del logo y la del texto de carga
+
+    // Ocultar textos inicialmente para evitar parpadeo del contenido original
+    if (logoElement) {
+        logoElement.innerHTML = '';
+        logoElement.style.opacity = '0'; // Asegurar que esté oculto antes de la animación
+    }
+    if (loadingTextElement) {
+        loadingTextElement.innerHTML = '';
+        loadingTextElement.style.opacity = '0'; // Asegurar que esté oculto antes de la animación
+    }
+
+    function typeTextEffect(element, text, charDelay, startDelay, onCompleteCallback) {
+        if (!element) {
+            if (onCompleteCallback) onCompleteCallback();
+            return; // No devuelve duración si el elemento no existe
+        }
+
+        setTimeout(() => { // Aplicar delay inicial antes de empezar a escribir
+            element.innerHTML = ''; // Limpiar de nuevo por si acaso
+            element.style.opacity = '1'; // Hacer visible el contenedor justo antes de escribir
+            let i = 0;
+            const typingInterval = setInterval(() => {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typingInterval);
+                    if (onCompleteCallback) onCompleteCallback();
+                }
+            }, charDelay);
+        }, startDelay);
+    }
+
+    // Calcular duración estimada del logo para el siguiente paso
+    // (No incluye el startDelay aquí, ya que es para el inicio de esta animación específica)
+    const logoAnimationOnlyDuration = logoText.length * charDisplayDelay;
 
     // Iniciar animación del logo
-    const logoAnimationDuration = typeTextEffect(logoElement, logoText, charDisplayDelay, () => {
-        // Iniciar animación del texto de carga después de que el logo termine + un pequeño delay
-        setTimeout(() => {
-            typeTextEffect(loadingTextElement, loadingText, charDisplayDelay, () => {
-                // Ambas animaciones de texto han terminado
-                // La lógica de la barra de progreso en splash-logic.js se activará después
-            });
-        }, 200); // 200ms de pausa entre logo y texto de carga
+    typeTextEffect(logoElement, logoText, charDisplayDelay, initialDelayLogo, () => {
+        // Iniciar animación del texto de carga después de que el logo termine + delayBetweenAnimations
+        // El startDelay para el siguiente texto es relativo al inicio de la página,
+        // o más bien, secuencial después del anterior.
+        // El inicio real del texto de carga será: initialDelayLogo + logoAnimationOnlyDuration + delayBetweenAnimations
+        typeTextEffect(loadingTextElement, loadingText, charDisplayDelay, delayBetweenAnimations, () => {
+            // Ambas animaciones de texto han terminado.
+            // Disparar un evento personalizado para que splash-logic.js sepa cuándo continuar.
+            const event = new CustomEvent('textAnimationsComplete');
+            document.dispatchEvent(event);
+        });
     });
-
-    // Pasar la duración total de las animaciones de texto a splash-logic.js
-    // Esto se hace para que splash-logic.js sepa cuándo empezar la barra de progreso.
-    // Se usa un evento personalizado o una variable global si es necesario,
-    // por ahora, splash-logic.js tendrá que tener una estimación o ser modificado
-    // para esperar una señal o un tiempo fijo que considere estas animaciones.
-    // La forma más simple es que splash-logic.js tenga su propio delay inicial grande
-    // que cubra estas animaciones de texto.
 });

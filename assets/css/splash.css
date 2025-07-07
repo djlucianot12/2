@@ -26,14 +26,14 @@
 }
 
 .splash-logo {
-    font-family: 'Assistant', sans-serif; /* Fuente de los proyectos, fallback a sans-serif genérico */
-    font-size: 4.5rem; /* Tamaño de fuente considerablemente más grande */
-    font-weight: 300; /* Un peso ligero si está disponible para Assistant, o normal */
+    font-family: 'butler_medium', serif; /* Cambiado a butler_medium */
+    font-size: 4.5rem; /* Mantener tamaño grande, se puede ajustar si es necesario */
+    font-weight: normal; /* butler_medium ya tiene un peso definido, 'normal' o 500 suele ser el medio */
     letter-spacing: 0.02em;
-    margin-bottom: 40px; /* Aumentar separación inferior */
+    margin-bottom: 40px;
     text-align: center;
-    opacity: 0; /* Iniciar oculto, JS lo hará visible */
-    transition: opacity 0.3s ease-in; /* Para un fade-in suave al empezar a escribir */
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
 }
 
 

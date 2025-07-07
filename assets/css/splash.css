@@ -21,6 +21,8 @@
     justify-content: center;
     z-index: 200; /* Asegurar que esté por encima de otros elementos */
     color: #fff;
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out, visibility 0.7s ease-out; /* Transición para inmersión */
+    transform-origin: center center;
 }
 
 .splash-logo {
@@ -30,57 +32,46 @@
     letter-spacing: 0.02em;
     margin-bottom: 40px; /* Aumentar separación inferior */
     text-align: center; /* Asegurar que el contenedor esté centrado si tiene ancho fijo */
+    /* Opacity y transform ya no son necesarios aquí, se manejan por JS si es necesario un fade-in inicial del contenedor */
 }
 
-.splash-logo span {
-    display: inline-block; /* Necesario para transformar letras individualmente */
+/* Ya no se necesitan spans individuales para la animación de escritura letra por letra con JS */
+/*.splash-logo span {
+    display: inline-block;
     opacity: 0;
     transform: translateY(20px);
     animation: logoLetterAppear 0.5s ease forwards;
-}
+}*/
 
 .splash-loading-text {
-    font-size: 1.2rem;
-    margin-top: 20px; /* Aumentar separación del logo */
-    margin-bottom: 30px; /* Aumentar separación de la barra */
+    font-size: 1.6rem; /* Aumentar tamaño */
+    margin-top: 25px;
+    margin-bottom: 20px; /* Ajustar para acercar a la barra */
     color: #ccc;
-    text-align: center; /* Asegurar centrado */
-    /* La animación se manejará desde JS para este efecto */
+    text-align: center;
 }
 
-.splash-loading-text span {
+/* Ya no se necesitan spans individuales para la animación de escritura letra por letra con JS */
+/*.splash-loading-text span {
     display: inline-block;
     opacity: 0;
     transform: translateY(15px);
     animation: loadingTextLetterAppear 0.4s ease forwards;
-}
+}*/
 
-
-/* No se necesita más typingEffectLogo, se usa logoLetterAppear por span */
-/* @keyframes typingEffectLogo {
-    from { width: 0; }
-    to { width: 100%; }
-} */
-
-@keyframes logoLetterAppear {
+/* @keyframes logoLetterAppear {
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* Animación de escritura para el texto "Entrando al estudio..." */
-/* @keyframes typingEffectLoadingText {
-    from { width: 0; }
-    to { width: 100%; }
 } */
 
-@keyframes loadingTextLetterAppear {
+/* @keyframes loadingTextLetterAppear {
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
+} */
 
 .progress-bar-container {
     width: 50%;
@@ -91,10 +82,9 @@
     overflow: hidden;
     margin-top: 70px; /* Aún más abajo */
     margin-bottom: 40px; /* Mayor separación inferior para el porcentaje si se mueve debajo */
-    opacity: 0;
-    animation: fadeInProgressBar 1s ease-out forwards;
-    animation-delay: 1s; /* Este delay se coordinará con las animaciones de texto */
+    opacity: 0; /* Controlado por JS */
     position: relative;
+    transition: opacity 0.5s ease-out; /* Para aparición suave desde JS */
 }
 
 .progress-bar {
@@ -108,15 +98,13 @@
 .progress-percentage {
     position: absolute;
     top: 50%;
-    left: calc(100% + 15px); /* A la derecha de la barra con 15px de espacio */
+    left: calc(100% + 15px);
     transform: translateY(-50%);
-    font-size: 1.2rem; /* Ligeramente más grande */
-    color: #fff; /* Blanco para máximo contraste */
-    opacity: 0;
-    animation: fadeInLogo 1s ease-out forwards;
-    /* El delay se ajustará en JS para que coincida con la aparición de la barra */
-    animation-delay: 1.2s; /* Sincronizar con la barra o un poco después */
-    white-space: nowrap; /* Evitar que "por ciento" se divida en dos líneas */
+    font-size: 1.2rem;
+    color: #fff;
+    opacity: 0; /* Controlado por JS */
+    white-space: nowrap;
+    transition: opacity 0.5s ease-out; /* Para aparición suave desde JS */
 }
 
 
@@ -127,7 +115,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    z-index: -1; /* Detrás del logo y la barra */
+    z-index: -1;
 }
 
 .particle {
@@ -135,40 +123,35 @@
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
     opacity: 0;
-    /* Ajuste de duración para fadeInParticle y twinkle */
-    animation: fadeInParticle 0.3s forwards, /* Más rápido */
-                 twinkle 1.5s infinite ease-in-out; /* Más rápido */
+    animation: fadeInParticle 0.3s forwards,
+                 twinkle 1.2s infinite ease-in-out;
 }
 
-/* Animación de escritura para el logo */
-@keyframes typingEffectLogo {
-    from { width: 0; }
-    to { width: 100%; } /* El ancho se ajustará al contenido del texto */
-}
-
+/* Ya no se necesita fadeInLogo aquí si no lo usa el porcentaje, pero lo dejo por si acaso o para futura referencia */
 @keyframes fadeInLogo {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadeInProgressBar {
+/* Ya no se necesita fadeInProgressBar */
+/* @keyframes fadeInProgressBar {
     from { opacity: 0; transform: scaleX(0); }
     to { opacity: 1; transform: scaleX(1); }
-}
+} */
 
 @keyframes fadeInParticle {
-    to { opacity: 0.7; } /* Opacidad máxima ligeramente menor para un efecto más sutil */
+    to { opacity: 0.85; }
 }
 
 @keyframes twinkle {
-    0%, 100% { opacity: 0.1; transform: scale(0.7); } /* Más sutil */
-    50% { opacity: 0.7; transform: scale(1); } /* Menos pronunciado */
+    0%, 100% { opacity: 0.15; transform: scale(0.8); }
+    50% { opacity: 0.85; transform: scale(1.2); }
 }
 
 /* Ajustes para responsividad si es necesario */
 @media screen and (max-width: 767px) {
     .splash-logo {
-        font-size: 2.5rem; /* Reducir un poco para móviles */
+        font-size: 2.5rem;
         margin-bottom: 25px;
     }
     .splash-loading-text {
@@ -177,25 +160,26 @@
         margin-bottom: 20px;
     }
     .progress-bar-container {
-        width: 70%; /* Un poco más ancho en móviles */
-        margin-top: 40px; /* Ajustar espaciado superior */
+        width: 70%;
+        margin-top: 40px;
+        /* Eliminado animation-delay */
     }
     .progress-percentage {
         font-size: 1rem;
-        /* Mover debajo de la barra en móviles para evitar desbordamiento */
         top: auto;
-        bottom: -25px; /* Debajo de la barra */
+        bottom: -25px;
         left: 50%;
         transform: translateX(-50%);
-        right: auto; /* Resetear right */
-        width: auto; /* Permitir que el ancho se ajuste al contenido */
+        right: auto;
+        width: auto;
         text-align: center;
+        /* Eliminado animation-delay */
     }
 }
 
 @media screen and (max-width: 400px) {
     .splash-logo {
-        font-size: 2rem; /* Aún más pequeño para pantallas muy estrechas */
+        font-size: 2rem;
     }
      .progress-bar-container {
         width: 80%;

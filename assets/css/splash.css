@@ -31,17 +31,11 @@
     font-weight: 300; /* Un peso ligero si está disponible para Assistant, o normal */
     letter-spacing: 0.02em;
     margin-bottom: 40px; /* Aumentar separación inferior */
-    text-align: center; /* Asegurar que el contenedor esté centrado si tiene ancho fijo */
-    /* Opacity y transform ya no son necesarios aquí, se manejan por JS si es necesario un fade-in inicial del contenedor */
+    text-align: center;
+    opacity: 0; /* Iniciar oculto, JS lo hará visible */
+    transition: opacity 0.3s ease-in; /* Para un fade-in suave al empezar a escribir */
 }
 
-/* Ya no se necesitan spans individuales para la animación de escritura letra por letra con JS */
-/*.splash-logo span {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: logoLetterAppear 0.5s ease forwards;
-}*/
 
 .splash-loading-text {
     font-size: 1.6rem; /* Aumentar tamaño */
@@ -49,16 +43,12 @@
     margin-bottom: 20px; /* Ajustar para acercar a la barra */
     color: #ccc;
     text-align: center;
+    opacity: 0; /* Iniciar oculto, JS lo hará visible */
+    transition: opacity 0.3s ease-in; /* Para un fade-in suave al empezar a escribir */
 }
 
-/* Ya no se necesitan spans individuales para la animación de escritura letra por letra con JS */
-/*.splash-loading-text span {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(15px);
-    animation: loadingTextLetterAppear 0.4s ease forwards;
-}*/
 
+/* Ya no se necesitan animaciones de aparición de letras aquí, se manejan por JS */
 /* @keyframes logoLetterAppear {
     to {
         opacity: 1;

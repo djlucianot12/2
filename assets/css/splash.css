@@ -29,11 +29,14 @@
     font-weight: 300; /* Un peso ligero si está disponible para Assistant, o normal */
     letter-spacing: 0.02em;
     margin-bottom: 40px; /* Aumentar separación inferior */
-    opacity: 1; /* La animación de escritura controlará la aparición */
-    overflow: hidden;
-    white-space: nowrap;
-    width: 0;
-    animation: typingEffectLogo 2s steps(40, end) 0.5s forwards;
+    text-align: center; /* Asegurar que el contenedor esté centrado si tiene ancho fijo */
+}
+
+.splash-logo span {
+    display: inline-block; /* Necesario para transformar letras individualmente */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: logoLetterAppear 0.5s ease forwards;
 }
 
 .splash-loading-text {
@@ -41,54 +44,79 @@
     margin-top: 20px; /* Aumentar separación del logo */
     margin-bottom: 30px; /* Aumentar separación de la barra */
     color: #ccc;
-    opacity: 1; /* La animación de escritura controlará la aparición */
-    overflow: hidden;
-    white-space: nowrap;
-    width: 0;
-    animation: typingEffectLoadingText 1.5s steps(30, end) 2.6s forwards; /* Delay para que inicie después del logo (2s + 0.5s delay logo + 0.1s buffer) */
+    text-align: center; /* Asegurar centrado */
+    /* La animación se manejará desde JS para este efecto */
+}
+
+.splash-loading-text span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: loadingTextLetterAppear 0.4s ease forwards;
+}
+
+
+/* No se necesita más typingEffectLogo, se usa logoLetterAppear por span */
+/* @keyframes typingEffectLogo {
+    from { width: 0; }
+    to { width: 100%; }
+} */
+
+@keyframes logoLetterAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Animación de escritura para el texto "Entrando al estudio..." */
-@keyframes typingEffectLoadingText {
+/* @keyframes typingEffectLoadingText {
     from { width: 0; }
-    to { width: 100%; } /* El ancho se ajustará al contenido del texto */
+    to { width: 100%; }
+} */
+
+@keyframes loadingTextLetterAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .progress-bar-container {
-    width: 50%; /* Más delgada */
-    max-width: 300px; /* Máximo más pequeño */
-    height: 8px; /* Más delgada */
-    background-color: #222; /* Fondo más oscuro */
-    border-radius: 4px;
+    width: 50%;
+    max-width: 300px;
+    height: 8px;
+    background-color: #222;
+    border-radius: 0px !important; /* Forzar bordes cuadrados */
     overflow: hidden;
-    margin-top: 50px; /* Más abajo */
-    margin-bottom: 10px; /* Menos margen inferior */
+    margin-top: 70px; /* Aún más abajo */
+    margin-bottom: 40px; /* Mayor separación inferior para el porcentaje si se mueve debajo */
     opacity: 0;
     animation: fadeInProgressBar 1s ease-out forwards;
-    animation-delay: 1s;
+    animation-delay: 1s; /* Este delay se coordinará con las animaciones de texto */
     position: relative;
 }
 
 .progress-bar {
     width: 0%;
     height: 100%;
-    background: linear-gradient(90deg, #ccc, #fff); /* Gradiente un poco más claro */
-    border-radius: 0px; /* Cuadrado */
+    background: linear-gradient(90deg, #ccc, #fff);
+    border-radius: 0px !important; /* Forzar bordes cuadrados */
     transition: width 0.3s ease-out;
 }
 
 .progress-percentage {
     position: absolute;
     top: 50%;
-    right: -80px; /* Posicionar a la derecha de la barra */
+    left: calc(100% + 15px); /* A la derecha de la barra con 15px de espacio */
     transform: translateY(-50%);
-    font-size: 1rem; /* Tamaño consistente */
-    color: #ccc; /* Color más visible que #aaa */
+    font-size: 1.2rem; /* Ligeramente más grande */
+    color: #fff; /* Blanco para máximo contraste */
     opacity: 0;
     animation: fadeInLogo 1s ease-out forwards;
-    animation-delay: 1.2s;
-    width: 70px; /* Ancho fijo para evitar saltos de layout */
-    text-align: left; /* Alineación del texto */
+    /* El delay se ajustará en JS para que coincida con la aparición de la barra */
+    animation-delay: 1.2s; /* Sincronizar con la barra o un poco después */
+    white-space: nowrap; /* Evitar que "por ciento" se divida en dos líneas */
 }
 
 
@@ -140,9 +168,40 @@
 /* Ajustes para responsividad si es necesario */
 @media screen and (max-width: 767px) {
     .splash-logo {
-        font-size: 2rem;
+        font-size: 2.5rem; /* Reducir un poco para móviles */
+        margin-bottom: 25px;
+    }
+    .splash-loading-text {
+        font-size: 1rem;
+        margin-top: 15px;
+        margin-bottom: 20px;
     }
     .progress-bar-container {
+        width: 70%; /* Un poco más ancho en móviles */
+        margin-top: 40px; /* Ajustar espaciado superior */
+    }
+    .progress-percentage {
+        font-size: 1rem;
+        /* Mover debajo de la barra en móviles para evitar desbordamiento */
+        top: auto;
+        bottom: -25px; /* Debajo de la barra */
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto; /* Resetear right */
+        width: auto; /* Permitir que el ancho se ajuste al contenido */
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .splash-logo {
+        font-size: 2rem; /* Aún más pequeño para pantallas muy estrechas */
+    }
+     .progress-bar-container {
         width: 80%;
+    }
+    .progress-percentage {
+        font-size: 0.9rem;
+        bottom: -22px;
     }
 }

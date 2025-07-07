@@ -70,8 +70,8 @@
     background-color: #222;
     border-radius: 0px !important; /* Forzar bordes cuadrados */
     overflow: hidden;
-    margin-top: 70px; /* Aún más abajo */
-    margin-bottom: 40px; /* Mayor separación inferior para el porcentaje si se mueve debajo */
+    margin-top: 100px; /* Aumentado para bajarlo más */
+    margin-bottom: 40px;
     opacity: 0; /* Controlado por JS */
     position: relative;
     transition: opacity 0.5s ease-out; /* Para aparición suave desde JS */

@@ -13,8 +13,8 @@
     <link rel="manifest" href="../assets/favicons/site.webmanifest">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body>
-    <div class="project-detail-page">
+<body class="project-page">
+    <div class="project-detail-page-wrapper">
         <header class="l-header js-header b-fonts__medium project-detail-header">
             <div class="p-header l-wide-container">
                 <div class="p-header__left js-logo">
@@ -31,7 +31,6 @@
                                 <span class="js-target__inner--pointer__stateChange js-target__parent--spring">Volver a Proyectos</span>
                             </a>
                         </li>
-                        <!-- Podríamos añadir más enlaces si fueran necesarios, como en el original -->
                     </ul>
                 </nav>
             </div>
@@ -42,36 +41,26 @@
                 <h1>PARK MANSION Roppongi</h1>
             </section>
 
-            <section class="media-viewer-container">
-                <div class="media-display-area">
-                    <img id="active-media-image" src="../assets/img/common/placeholder.svg" alt="Medio actual del proyecto">
-                    <iframe id="active-media-video" style="display:none;" width="560" height="315" src="" title="Project Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <section class="project-media-scroll-gallery">
+                <img src="../assets/img/common/placeholder.svg?id=1" alt="Imagen 1 del proyecto PARK MANSION Roppongi">
+                <img src="../assets/img/common/placeholder.svg?id=2" alt="Imagen 2 del proyecto PARK MANSION Roppongi">
+                <img src="../assets/img/common/placeholder.svg?id=3" alt="Imagen 3 del proyecto PARK MANSION Roppongi">
+                <img src="../assets/img/common/placeholder.svg?id=4" alt="Imagen 4 del proyecto PARK MANSION Roppongi">
+                <img src="../assets/img/common/placeholder.svg?id=5" alt="Imagen 5 del proyecto PARK MANSION Roppongi">
+                <img src="../assets/img/common/placeholder.svg?id=6" alt="Imagen 6 del proyecto PARK MANSION Roppongi">
+                <img src="../assets/img/common/placeholder.svg?id=7" alt="Imagen 7 del proyecto PARK MANSION Roppongi">
+                <img src="../assets/img/common/placeholder.svg?id=8" alt="Imagen 8 del proyecto PARK MANSION Roppongi">
+
+                <div class="video-placeholder-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID_1_PLACEHOLDER" title="Video 1 del proyecto PARK MANSION Roppongi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
-                <div class="media-navigation">
-                    <button id="prev-media" class="media-nav-button">&lt; Anterior</button>
-                    <button id="next-media" class="media-nav-button">Siguiente &gt;</button>
+                <div class="video-placeholder-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID_2_PLACEHOLDER" title="Video 2 del proyecto PARK MANSION Roppongi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </section>
 
-            <div id="media-data" style="display:none;">
-                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=1" data-alt="Imagen 1 del proyecto"></div>
-                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=2" data-alt="Imagen 2 del proyecto"></div>
-                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=3" data-alt="Imagen 3 del proyecto"></div>
-                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=4" data-alt="Imagen 4 del proyecto"></div>
-                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=5" data-alt="Imagen 5 del proyecto"></div>
-                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=6" data-alt="Imagen 6 del proyecto"></div>
-                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=7" data-alt="Imagen 7 del proyecto"></div>
-                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=8" data-alt="Imagen 8 del proyecto"></div>
-                <div data-type="video" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ" data-alt="Video 1 del proyecto"></div> <!-- Placeholder YouTube video -->
-                <div data-type="video" data-src="https://player.vimeo.com/video/123456789" data-alt="Video 2 del proyecto"></div> <!-- Placeholder Vimeo video -->
-            </div>
-
-            <div class="media-counter-container">
-                <span id="media-current-index">1</span> / <span id="media-total-count">10</span>
-            </div>
-
             <section class="project-description-section">
-                 <p>Detalles del proyecto "PARK MANSION Roppongi" estarán disponibles próximamente.</p>
+                 <p>Detalles del proyecto "PARK MANSION Roppongi" estarán disponibles próximamente. Este espacio está diseñado para mostrar información relevante sobre el proyecto, sus características, y el proceso de diseño involucrado. Se podrán incluir textos descriptivos, especificaciones técnicas, y cualquier otro detalle que enriquezca la presentación del trabajo realizado por LT Studio Desing.</p>
             </section>
         </main>
 
@@ -79,6 +68,6 @@
             <p>&copy; LT Studio Desing</p>
         </footer>
     </div>
-    <script src="../assets/js/project-detail-gallery.js" defer></script>
+    <!-- <script src="../assets/js/project-detail-gallery.js" defer></script> -->
 </body>
 </html>

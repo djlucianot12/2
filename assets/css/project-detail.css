@@ -1,0 +1,93 @@
+body {
+    background-color: #f0f0f0;
+    color: #333;
+    font-family: 'Assistant', sans-serif;
+    margin: 0;
+    padding: 20px; /* Añadir un poco de padding general al body */
+    line-height: 1.6;
+}
+
+.project-detail-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    border-radius: 8px; /* Bordes ligeramente redondeados para el contenedor */
+}
+
+.project-header {
+    padding-bottom: 20px;
+    margin-bottom: 30px; /* Aumentar margen inferior */
+    border-bottom: 1px solid #eee;
+    text-align: right; /* Mover el enlace de volver a la derecha */
+}
+
+.project-header .back-to-home {
+    text-decoration: none;
+    color: #555; /* Color más sutil */
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.project-header .back-to-home:hover {
+    background-color: #252525;
+    color: #fff;
+    border-color: #252525;
+}
+
+.project-detail-container h1 {
+    font-family: 'butler_medium', serif;
+    color: #252525;
+    font-size: 2.8rem; /* Un poco más grande */
+    margin-bottom: 25px;
+    border-bottom: 2px solid #252525; /* Línea debajo del título */
+    padding-bottom: 15px;
+}
+
+.project-content p {
+    line-height: 1.7; /* Mayor interlineado para legibilidad */
+    color: #444; /* Texto ligeramente más oscuro */
+    margin-bottom: 20px;
+}
+
+.project-content img {
+    max-width: 100%; /* Asegurar que la imagen sea responsiva */
+    height: auto;
+    border-radius: 4px; /* Bordes redondeados para la imagen */
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    display: block; /* Para centrar con margin auto si es necesario */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project-footer {
+    margin-top: 50px; /* Aumentar margen superior */
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #888; /* Color más sutil */
+}
+
+/* Media query para pantallas más pequeñas */
+@media screen and (max-width: 767px) {
+    body {
+        padding: 10px;
+    }
+    .project-detail-container {
+        margin: 20px auto;
+        padding: 20px;
+    }
+    .project-detail-container h1 {
+        font-size: 2rem;
+    }
+    .project-header {
+        text-align: left; /* Enlace de volver a la izquierda en móviles */
+    }
+}

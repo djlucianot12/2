@@ -1,5 +1,5 @@
 body.project-page {
-    background-color: #ffffff;
+    background-color: #f7f7f7; /* Fondo gris claro */
     color: #333;
     font-family: 'Assistant', sans-serif;
     margin: 0;
@@ -12,51 +12,71 @@ body.project-page {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 15px 0; /* Ajustar padding vertical */
-    background-color: rgba(255, 255, 255, 0.95); /* Fondo ligeramente translúcido */
-    z-index: 1000; /* Alto z-index para estar encima de todo */
-    box-shadow: 0 1px 5px rgba(0,0,0,0.1); /* Sombra sutil */
-    -webkit-backdrop-filter: blur(5px); /* Efecto blur para navegadores que lo soporten */
+    padding: 15px 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 1000;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
 }
 
-/* Re-aplicar estilos del header principal si es necesario, asegurando rutas y colores */
-.project-detail-header .p-header {
+.project-detail-header .p-header.l-wide-container {
+    /* width: 87.5vw;  Ya heredado de bundle.css */
+    /* margin-right: auto; Ya heredado */
+    /* margin-left: auto; Ya heredado */
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Para separar logo de posible nav futuro */
     align-items: center;
 }
 
-.project-detail-header .p-header__left a,
-.project-detail-header .js-nav__link {
+.project-detail-header .p-header__left__inner {
+    display: flex; /* Para alinear logo y "Back to Projects" */
+    align-items: center;
+}
+
+.project-detail-header .logo-link .js-target__parent--spring {
+    color: #252525 !important;
+    font-size: 1.8rem; /* Tamaño de logo LTSD aumentado */
+    font-weight: bold; /* Hacerlo un poco más prominente */
+}
+
+.project-detail-header .back-to-projects-link {
     color: #252525 !important;
     text-decoration: none;
+    margin-left: 25px; /* Espacio entre logo y "Back to Projects" */
 }
-.project-detail-header .js-target__parent--spring {
+
+.project-detail-header .back-to-projects-link .js-target__parent--spring {
     color: #252525 !important;
-    font-size: 1.4rem; /* Ajustar si es necesario */
+    font-size: 1.6rem; /* Tamaño aumentado para "Back to Projects" */
+    font-family: 'Assistant', sans-serif; /* Asegurar consistencia si butler_medium es muy diferente */
+    font-weight: 500; /* Un poco más de peso */
 }
-.project-detail-header .p-header__list__item {
-    margin-left: 30px; /* Espacio para el enlace de volver */
+
+/* Eliminar la nav original de la plantilla si no se usa */
+.project-detail-header nav.js-nav {
+    display: none; /* Ocultar el nav que venía con la plantilla original del header */
 }
 
 
 .project-detail-container {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 100px 20px 60px; /* Aumentado padding superior para header fijo */
+    padding: 120px 40px 60px;
+    background-color: #fff; /* Contenedor principal sigue blanco para contraste */
+    min-height: calc(100vh - 180px); /* Asegurar que ocupe al menos la altura de la ventana menos header/footer */
 }
 
 .project-title-section {
     text-align: center;
-    margin-bottom: 60px; /* Más espacio después del título */
-    padding-top: 20px; /* Espacio adicional si el header es translúcido */
+    margin-bottom: 60px;
+    padding-top: 20px;
 }
 
 .project-title-section h1 {
     font-family: 'butler_medium', serif;
     color: #252525;
-    font-size: 3rem; /* Ligeramente más grande */
+    font-size: 3rem;
     line-height: 1.3;
     margin-bottom: 10px;
     border-bottom: none;
@@ -70,25 +90,39 @@ body.project-page {
 .project-media-scroll-gallery img,
 .project-media-scroll-gallery .video-placeholder-container {
     display: block;
-    width: 100%; /* Ocupar el ancho del contenedor */
-    max-width: 1000px; /* Limitar el ancho máximo de las imágenes/videos */
+    width: 100%;
+    max-width: 1000px;
     height: auto;
-    margin: 0 auto 8vh; /* Centrado y con buen margen inferior (8% de la altura del viewport) */
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1); /* Sombra más pronunciada */
-    border-radius: 4px; /* Bordes sutilmente redondeados */
+    margin: 0 auto 8vh;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border-radius: 4px;
 }
 
 .project-media-scroll-gallery .video-placeholder-container iframe {
     display: block;
     width: 100%;
-    aspect-ratio: 16/9; /* Proporción para video */
+    aspect-ratio: 16/9;
     border: none;
-    border-radius: 4px;
+    border-radius: 4px; /* Aplicar también a iframes */
+}
+
+.media-counter-container { /* Estilos para el nuevo contador de scroll */
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    background-color: rgba(37, 37, 37, 0.8); /* Fondo un poco más opaco */
+    color: #fff;
+    padding: 10px 18px; /* Más padding */
+    border-radius: 5px; /* Bordes más redondeados */
+    font-size: 1.1rem; /* Ligeramente más grande */
+    font-weight: 500;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 
 .project-description-section {
-    margin-top: 60px; /* Más espacio antes de la descripción */
+    margin-top: 60px;
     padding: 0 5%;
 }
 
@@ -110,30 +144,42 @@ body.project-page {
 
 /* Media query para pantallas más pequeñas */
 @media screen and (max-width: 767px) {
-    .project-detail-header {
-        padding: 10px 0;
-    }
     .project-detail-header .p-header.l-wide-container {
-        width: 100%;
-        padding-right: 15px;
-        padding-left: 15px;
+        padding-right: 20px; /* Ajustar padding para móviles */
+        padding-left: 20px;
     }
-     .project-detail-header .js-target__parent--spring {
-        font-size: 1.2rem;
+    .project-detail-header .logo-link .js-target__parent--spring {
+        font-size: 1.6rem;
+    }
+    .project-detail-header .back-to-projects-link .js-target__parent--spring {
+        font-size: 1.1rem;
+        margin-left:15px;
+    }
+    .project-detail-header .p-header__left__inner {
+        justify-content: flex-start; /* Alinear a la izquierda en móviles */
+    }
+     .project-detail-header nav.js-nav { /* Ocultar si hay un menú de hamburguesa no deseado */
+        display: none;
     }
 
+
     .project-detail-container {
-        padding: 80px 15px 40px;
+        padding: 90px 15px 40px; /* Ajustar padding superior para header fijo */
     }
     .project-title-section h1 {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
     .project-media-scroll-gallery img,
     .project-media-scroll-gallery .video-placeholder-container {
-        width: 100%; /* En móviles, ocupar todo el ancho disponible del contenedor */
-        margin: 40px auto; /* Reducir margen vertical en móviles */
+        margin: 30px auto;
     }
     .project-description-section {
-        padding: 0; /* Sin padding lateral extra en móviles */
+        padding: 0;
+    }
+    .media-counter-container {
+        bottom: 15px;
+        right: 15px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
     }
 }

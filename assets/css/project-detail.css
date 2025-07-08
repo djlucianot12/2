@@ -12,59 +12,55 @@ body.project-page {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 15px 0;
-    background-color: rgba(255, 255, 255, 0.95);
+    padding: 25px 0; /* Aumentado padding vertical para más altura */
+    background-color: rgba(255, 255, 255, 0.9); /* Ligeramente menos opaco */
     z-index: 1000;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra un poco más pronunciada */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
 }
 
 .project-detail-header .p-header.l-wide-container {
-    /* width: 87.5vw;  Ya heredado de bundle.css */
-    /* margin-right: auto; Ya heredado */
-    /* margin-left: auto; Ya heredado */
     display: flex;
-    justify-content: space-between; /* Para separar logo de posible nav futuro */
+    justify-content: space-between;
     align-items: center;
 }
 
-.project-detail-header .p-header__left__inner {
-    display: flex; /* Para alinear logo y "Back to Projects" */
+.project-detail-header .p-header__left__inner.project-detail-header__inner { /* Clase específica para evitar afectar otros headers */
+    display: flex;
     align-items: center;
 }
 
 .project-detail-header .logo-link .js-target__parent--spring {
     color: #252525 !important;
-    font-size: 1.8rem; /* Tamaño de logo LTSD aumentado */
-    font-weight: bold; /* Hacerlo un poco más prominente */
+    font-size: 2rem; /* Aumentado tamaño del logo LTSD */
+    font-weight: bold;
 }
 
 .project-detail-header .back-to-projects-link {
     color: #252525 !important;
     text-decoration: none;
-    margin-left: 25px; /* Espacio entre logo y "Back to Projects" */
+    margin-left: 30px; /* Aumentado espacio entre logo y "Back to Projects" */
 }
 
 .project-detail-header .back-to-projects-link .js-target__parent--spring {
     color: #252525 !important;
-    font-size: 1.6rem; /* Tamaño aumentado para "Back to Projects" */
-    font-family: 'Assistant', sans-serif; /* Asegurar consistencia si butler_medium es muy diferente */
-    font-weight: 500; /* Un poco más de peso */
+    font-size: 1.5rem; /* Ajustado, podría ser 1.6rem o 1.7rem si se ve pequeño */
+    font-family: 'Assistant', sans-serif;
+    font-weight: 500;
 }
 
-/* Eliminar la nav original de la plantilla si no se usa */
-.project-detail-header nav.js-nav {
-    display: none; /* Ocultar el nav que venía con la plantilla original del header */
+.project-detail-header nav.js-nav { /* Asegurarse que el nav original no aparezca si no se quiere */
+    display: none;
 }
 
 
 .project-detail-container {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 120px 40px 60px;
-    background-color: #fff; /* Contenedor principal sigue blanco para contraste */
-    min-height: calc(100vh - 180px); /* Asegurar que ocupe al menos la altura de la ventana menos header/footer */
+    padding: 140px 40px 60px; /* Aumentado padding superior para compensar header más alto (25px*2 + buffer) */
+    background-color: #fff;
+    min-height: calc(100vh - 200px); /* (140px padding top + 60px padding bottom) */
 }
 
 .project-title-section {
@@ -103,20 +99,20 @@ body.project-page {
     width: 100%;
     aspect-ratio: 16/9;
     border: none;
-    border-radius: 4px; /* Aplicar también a iframes */
+    border-radius: 4px;
 }
 
-.media-counter-container { /* Estilos para el nuevo contador de scroll */
+.media-counter-container {
     position: fixed;
     bottom: 30px;
     right: 40px;
-    background-color: rgba(37, 37, 37, 0.8); /* Fondo un poco más opaco */
+    background-color: rgba(37, 37, 37, 0.8);
     color: #fff;
-    padding: 10px 18px; /* Más padding */
-    border-radius: 5px; /* Bordes más redondeados */
-    font-size: 1.1rem; /* Ligeramente más grande */
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-size: 1.1rem;
     font-weight: 500;
-    z-index: 100;
+    z-index: 1000; /* Asegurar que esté sobre el contenido scrolleable */
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
@@ -144,27 +140,29 @@ body.project-page {
 
 /* Media query para pantallas más pequeñas */
 @media screen and (max-width: 767px) {
+    .project-detail-header {
+        padding: 15px 0; /* Reducir padding en móviles */
+    }
     .project-detail-header .p-header.l-wide-container {
-        padding-right: 20px; /* Ajustar padding para móviles */
+        padding-right: 20px;
         padding-left: 20px;
     }
     .project-detail-header .logo-link .js-target__parent--spring {
-        font-size: 1.6rem;
+        font-size: 1.7rem; /* Ajustar tamaño de logo en móvil */
     }
     .project-detail-header .back-to-projects-link .js-target__parent--spring {
-        font-size: 1.1rem;
+        font-size: 1.2rem; /* Ajustar tamaño de "Back to Projects" en móvil */
         margin-left:15px;
     }
-    .project-detail-header .p-header__left__inner {
-        justify-content: flex-start; /* Alinear a la izquierda en móviles */
+    .project-detail-header .p-header__left__inner.project-detail-header__inner {
+        justify-content: flex-start;
     }
-     .project-detail-header nav.js-nav { /* Ocultar si hay un menú de hamburguesa no deseado */
+    .project-detail-header nav.js-nav {
         display: none;
     }
 
-
     .project-detail-container {
-        padding: 90px 15px 40px; /* Ajustar padding superior para header fijo */
+        padding: 100px 15px 40px; /* Ajustar padding superior para header fijo en móvil */
     }
     .project-title-section h1 {
         font-size: 2rem;

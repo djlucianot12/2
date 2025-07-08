@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mediaGallery = document.querySelector('.project-media-scroll-gallery');
     const currentIndexSpan = document.getElementById('media-current-index');
-    const totalCountSpan = document.getElementById('media-total-count');
-    const scrollMediaCounter = document.getElementById('scroll-media-counter');
+    const totalCountSpan = document.getElementById('media-total-count'); // Este span contendrá el número total
+    const scrollMediaCounterElement = document.getElementById('scroll-media-counter'); // El div contenedor completo
 
-    if (!mediaGallery || !currentIndexSpan || !totalCountSpan || !scrollMediaCounter) {
-        // Si alguno de los elementos no existe, ocultamos el contador y no hacemos nada más.
-        if (scrollMediaCounter) {
-            scrollMediaCounter.style.display = 'none';
+    if (!mediaGallery || !currentIndexSpan || !totalCountSpan || !scrollMediaCounterElement) {
+        if (scrollMediaCounterElement) {
+            scrollMediaCounterElement.style.display = 'none';
         }
         console.warn('Elementos para el contador de scroll no encontrados. El contador no funcionará.');
         return;
@@ -17,55 +16,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalMedia = mediaElements.length;
 
     if (totalMedia === 0) {
-        scrollMediaCounter.style.display = 'none';
+        scrollMediaCounterElement.style.display = 'none';
         return;
     }
 
-    totalCountSpan.textContent = totalMedia;
+    // Establecer el texto completo una vez, luego solo actualizar el número actual
+    totalCountSpan.textContent = totalMedia; // Solo el número total
     currentIndexSpan.textContent = '1'; // Iniciar en 1
+
 
     function updateScrollCounter() {
         let mostVisibleElementIndex = 0;
         let maxVisibility = 0;
+        const windowHeight = window.innerHeight;
+        const viewportCenter = windowHeight / 2;
 
         mediaElements.forEach((el, index) => {
             const rect = el.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
 
-            // Calcular cuánto del elemento está visible en el viewport
-            const visibleHeight = Math.max(0, Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0));
-            const visibilityPercentage = visibleHeight / rect.height;
+            // Considerar solo elementos que están al menos parcialmente en el viewport
+            if (rect.bottom < 0 || rect.top > windowHeight) {
+                return;
+            }
 
-            if (visibilityPercentage > maxVisibility) {
-                maxVisibility = visibilityPercentage;
+            // Calcular el punto medio vertical del elemento
+            const elementMidPoint = rect.top + rect.height / 2;
+            // Calcular la distancia del punto medio del elemento al centro del viewport
+            const distanceToCenter = Math.abs(elementMidPoint - viewportCenter);
+
+            // Una forma de priorizar: el que esté más cerca del centro del viewport.
+            // Se puede ajustar la lógica si se prefiere el que tiene más área visible.
+            // Por ahora, nos quedaremos con el que esté más cerca del centro.
+
+            // Inicializar si es el primer elemento evaluado en este ciclo de scroll
+            if (index === 0 || distanceToCenter < maxVisibility) {
+                maxVisibility = distanceToCenter; // Aquí maxVisibility representa la menor distancia al centro
                 mostVisibleElementIndex = index;
-            } else if (visibilityPercentage === maxVisibility) {
-                // Si hay empate, preferir el que está más cerca del centro del viewport
-                const distToCenterCurrent = Math.abs(rect.top + rect.height / 2 - windowHeight / 2);
-                const distToCenterMostVisible = Math.abs(mediaElements[mostVisibleElementIndex].getBoundingClientRect().top + mediaElements[mostVisibleElementIndex].getBoundingClientRect().height / 2 - windowHeight / 2);
-                if (distToCenterCurrent < distToCenterMostVisible) {
-                    mostVisibleElementIndex = index;
-                }
             }
         });
 
-        // Si hay al menos un poco de visibilidad (ej. > 10%) del elemento más visible, lo contamos.
-        // Si no, y estamos al principio o al final, mantenemos el contador en 1 o el total.
-        if (maxVisibility > 0.1) {
-            currentIndexSpan.textContent = mostVisibleElementIndex + 1;
-        } else {
-            // Si no hay nada muy visible, verificar si estamos al principio o al final del scroll de la galería
-            const galleryRect = mediaGallery.getBoundingClientRect();
-            if (galleryRect.top >= 0) { // Si la galería está en la parte superior o por encima del viewport
-                 currentIndexSpan.textContent = '1';
-            } else if (galleryRect.bottom <= window.innerHeight) { // Si el fondo de la galería está en la parte inferior o por encima
-                 currentIndexSpan.textContent = totalMedia;
-            }
-            // Si no, el contador se queda como está hasta que un elemento sea más visible.
-        }
+        // Si se detectó algún elemento (maxVisibility habrá sido actualizado desde un valor alto inicial)
+        // O si se prefiere la lógica anterior de porcentaje de visibilidad:
+        // const visibleHeight = Math.max(0, Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0));
+        // const visibilityPercentage = visibleHeight / rect.height;
+        // if (visibilityPercentage > maxVisibility) { ... }
+
+        // Actualizamos el contador con el índice del elemento más cercano al centro
+        currentIndexSpan.textContent = mostVisibleElementIndex + 1;
     }
 
-    // Actualizar al cargar y al hacer scroll
-    updateScrollCounter();
+    updateScrollCounter(); // Llamada inicial
     window.addEventListener('scroll', updateScrollCounter, { passive: true });
 });

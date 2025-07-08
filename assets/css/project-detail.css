@@ -5,6 +5,14 @@ body.project-page {
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    opacity: 0; /* Estado inicial para animación de entrada */
+    transform: scale(0.95) translateY(20px); /* Estado inicial para animación de entrada */
+}
+
+body.project-page.page-transition-in {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition: opacity 0.6s ease-out 0.3s, transform 0.6s ease-out 0.3s; /* El delay permite que la página anterior se desvanezca un poco */
 }
 
 .project-detail-header {

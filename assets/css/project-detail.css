@@ -5,14 +5,14 @@ body.project-page {
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    opacity: 0; /* Estado inicial para animación de entrada */
-    transform: scale(0.95) translateY(20px); /* Estado inicial para animación de entrada */
+    opacity: 1; /* CAMBIO: Iniciar visible por defecto para depuración */
+    /* transform: scale(0.95) translateY(20px); */ /* Comentado para depuración */
 }
 
 body.project-page.page-transition-in {
     opacity: 1;
     transform: scale(1) translateY(0);
-    transition: opacity 0.6s ease-out 0.3s, transform 0.6s ease-out 0.3s; /* El delay permite que la página anterior se desvanezca un poco */
+    transition: opacity 0.6s ease-out 0.3s, transform 0.6s ease-out 0.3s;
 }
 
 .project-detail-header {
@@ -20,10 +20,10 @@ body.project-page.page-transition-in {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 25px 0; /* Aumentado padding vertical para más altura */
-    background-color: rgba(255, 255, 255, 0.9); /* Ligeramente menos opaco */
+    padding: 25px 0;
+    background-color: rgba(255, 255, 255, 0.9);
     z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra un poco más pronunciada */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
 }
@@ -34,31 +34,31 @@ body.project-page.page-transition-in {
     align-items: center;
 }
 
-.project-detail-header .p-header__left__inner.project-detail-header__inner { /* Clase específica para evitar afectar otros headers */
+.project-detail-header .p-header__left__inner.project-detail-header__inner {
     display: flex;
     align-items: center;
 }
 
 .project-detail-header .logo-link .js-target__parent--spring {
     color: #252525 !important;
-    font-size: 2rem; /* Aumentado tamaño del logo LTSD */
+    font-size: 2rem;
     font-weight: bold;
 }
 
 .project-detail-header .back-to-projects-link {
     color: #252525 !important;
     text-decoration: none;
-    margin-left: 30px; /* Aumentado espacio entre logo y "Back to Projects" */
+    margin-left: 30px;
 }
 
 .project-detail-header .back-to-projects-link .js-target__parent--spring {
     color: #252525 !important;
-    font-size: 1.5rem; /* Ajustado, podría ser 1.6rem o 1.7rem si se ve pequeño */
+    font-size: 1.5rem;
     font-family: 'Assistant', sans-serif;
     font-weight: 500;
 }
 
-.project-detail-header nav.js-nav { /* Asegurarse que el nav original no aparezca si no se quiere */
+.project-detail-header nav.js-nav {
     display: none;
 }
 
@@ -66,9 +66,9 @@ body.project-page.page-transition-in {
 .project-detail-container {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 140px 40px 60px; /* Aumentado padding superior para compensar header más alto (25px*2 + buffer) */
+    padding: 140px 40px 60px;
     background-color: #fff;
-    min-height: calc(100vh - 200px); /* (140px padding top + 60px padding bottom) */
+    min-height: calc(100vh - 200px);
 }
 
 .project-title-section {
@@ -120,7 +120,7 @@ body.project-page.page-transition-in {
     border-radius: 5px;
     font-size: 1.1rem;
     font-weight: 500;
-    z-index: 1000; /* Asegurar que esté sobre el contenido scrolleable */
+    z-index: 1000;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
@@ -149,17 +149,17 @@ body.project-page.page-transition-in {
 /* Media query para pantallas más pequeñas */
 @media screen and (max-width: 767px) {
     .project-detail-header {
-        padding: 15px 0; /* Reducir padding en móviles */
+        padding: 15px 0;
     }
     .project-detail-header .p-header.l-wide-container {
         padding-right: 20px;
         padding-left: 20px;
     }
     .project-detail-header .logo-link .js-target__parent--spring {
-        font-size: 1.7rem; /* Ajustar tamaño de logo en móvil */
+        font-size: 1.7rem;
     }
     .project-detail-header .back-to-projects-link .js-target__parent--spring {
-        font-size: 1.2rem; /* Ajustar tamaño de "Back to Projects" en móvil */
+        font-size: 1.2rem;
         margin-left:15px;
     }
     .project-detail-header .p-header__left__inner.project-detail-header__inner {
@@ -170,7 +170,7 @@ body.project-page.page-transition-in {
     }
 
     .project-detail-container {
-        padding: 100px 15px 40px; /* Ajustar padding superior para header fijo en móvil */
+        padding: 100px 15px 40px;
     }
     .project-title-section h1 {
         font-size: 2rem;

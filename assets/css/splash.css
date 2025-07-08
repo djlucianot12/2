@@ -179,3 +179,17 @@
         bottom: -22px;
     }
 }
+
+/* Page Transition Styles */
+body.page-transition-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+.p-stage__menu__item.is-transitioning {
+    transform: scale(1.1) translateZ(50px); /* Ligero zoom y elevación */
+    opacity: 0;
+    transition: transform 0.5s ease-out, opacity 0.4s ease-out;
+    z-index: 10000; /* Asegurar que esté por encima de otros elementos durante la transición */
+    position: relative; /* Necesario para z-index en algunos casos */
+}

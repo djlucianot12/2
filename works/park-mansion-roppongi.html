@@ -1,31 +1,84 @@
 <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Proyecto: PARK MANSION Roppongi</title>
-                <link rel="stylesheet" href="../assets/css/bundle.css">
-                <link rel="stylesheet" href="../assets/css/project-detail.css">
-                <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
-                <link rel="icon" type="image/svg+xml" href="../assets/favicons/favicon_ltsd.svg">
-                <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
-                <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
-                <link rel="manifest" href="../assets/favicons/site.webmanifest">
-                <meta name="theme-color" content="#ffffff">
-            </head>
-            <body>
-                <div class="project-detail-container">
-                    <header class="project-header">
-                        <a href="../index.html" class="back-to-home">Volver a Inicio</a>
-                    </header>
-                    <h1>PARK MANSION Roppongi</h1>
-                    <div class="project-content">
-                        <p>Detalles del proyecto "PARK MANSION Roppongi" estarán disponibles próximamente.</p>
-                        <img src="../assets/img/common/placeholder.svg" alt="Placeholder para PARK MANSION Roppongi" style="width:100%;max-width:600px;height:auto;margin-top:20px;">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto: PARK MANSION Roppongi</title>
+    <link rel="stylesheet" href="../assets/css/bundle.css">
+    <link rel="stylesheet" href="../assets/css/project-detail.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicons/favicon_ltsd.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="../assets/favicons/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <div class="project-detail-page">
+        <header class="l-header js-header b-fonts__medium project-detail-header">
+            <div class="p-header l-wide-container">
+                <div class="p-header__left js-logo">
+                    <div class="p-header__left__inner">
+                        <a class="js-target--pointer__stateChange" href="../index.html">
+                            <div class="js-target__inner--pointer__stateChange js-target__parent--spring">LTSD</div>
+                        </a>
                     </div>
-                    <footer class="project-footer">
-                        <p>&copy; LT Studio Desing</p>
-                    </footer>
                 </div>
-            </body>
-            </html>
+                <nav class="js-nav">
+                    <ul class="p-header__list">
+                        <li class="p-header__list__item">
+                            <a class="js-nav__link js-target--pointer__stateChange" href="../index.html">
+                                <span class="js-target__inner--pointer__stateChange js-target__parent--spring">Volver a Proyectos</span>
+                            </a>
+                        </li>
+                        <!-- Podríamos añadir más enlaces si fueran necesarios, como en el original -->
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="project-detail-container">
+            <section class="project-title-section">
+                <h1>PARK MANSION Roppongi</h1>
+            </section>
+
+            <section class="media-viewer-container">
+                <div class="media-display-area">
+                    <img id="active-media-image" src="../assets/img/common/placeholder.svg" alt="Medio actual del proyecto">
+                    <iframe id="active-media-video" style="display:none;" width="560" height="315" src="" title="Project Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="media-navigation">
+                    <button id="prev-media" class="media-nav-button">&lt; Anterior</button>
+                    <button id="next-media" class="media-nav-button">Siguiente &gt;</button>
+                </div>
+            </section>
+
+            <div id="media-data" style="display:none;">
+                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=1" data-alt="Imagen 1 del proyecto"></div>
+                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=2" data-alt="Imagen 2 del proyecto"></div>
+                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=3" data-alt="Imagen 3 del proyecto"></div>
+                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=4" data-alt="Imagen 4 del proyecto"></div>
+                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=5" data-alt="Imagen 5 del proyecto"></div>
+                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=6" data-alt="Imagen 6 del proyecto"></div>
+                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=7" data-alt="Imagen 7 del proyecto"></div>
+                <div data-type="image" data-src="../assets/img/common/placeholder.svg?id=8" data-alt="Imagen 8 del proyecto"></div>
+                <div data-type="video" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ" data-alt="Video 1 del proyecto"></div> <!-- Placeholder YouTube video -->
+                <div data-type="video" data-src="https://player.vimeo.com/video/123456789" data-alt="Video 2 del proyecto"></div> <!-- Placeholder Vimeo video -->
+            </div>
+
+            <div class="media-counter-container">
+                <span id="media-current-index">1</span> / <span id="media-total-count">10</span>
+            </div>
+
+            <section class="project-description-section">
+                 <p>Detalles del proyecto "PARK MANSION Roppongi" estarán disponibles próximamente.</p>
+            </section>
+        </main>
+
+        <footer class="project-footer">
+            <p>&copy; LT Studio Desing</p>
+        </footer>
+    </div>
+    <script src="../assets/js/project-detail-gallery.js" defer></script>
+</body>
+</html>

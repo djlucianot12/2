@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One Avenue - Próximamente</title>
-    <link rel="stylesheet" href="../assets/css/new_project_core.css"> <!-- Enlazará al nuevo CSS -->
+    <title>One Avenue</title>
+    <link rel="stylesheet" href="../assets/css/new_project_core.css">
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/svg+xml" href="../assets/favicons/favicon_ltsd.svg">
@@ -12,26 +12,141 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="../assets/favicons/site.webmanifest">
     <meta name="theme-color" content="#ffffff">
-    <style>
-        body { display: flex; flex-direction: column; min-height: 100vh; margin: 0; font-family: sans-serif; }
-        .placeholder-main-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
-        .placeholder-header, .placeholder-footer { flex-shrink: 0; background-color: #f0f0f0; padding: 10px 20px; text-align: center; }
-        .placeholder-header a, .placeholder-footer a { text-decoration: none; color: #333; }
-        .placeholder-header .logo { font-weight: bold; font-size: 1.2em; }
-    </style>
 </head>
 <body>
-    <header class="placeholder-header">
-        <a href="../index.html" class="logo">LTSD</a> |
-        <a href="../index.html#works">Back to Projects</a>
+
+    <header class="npc-header">
+        <div class="npc-header-content">
+            <div class="npc-header-left">
+                <a href="../index.html" class="npc-logo">LTSD</a>
+                <nav class="npc-nav">
+                    <a href="../index.html#works" class="npc-nav-link">Back to Projects</a>
+                </nav>
+            </div>
+            <div class="npc-header-right">
+                <span class="npc-project-date">Fecha Proyecto One Avenue</span>
+            </div>
+        </div>
     </header>
-    <main class="placeholder-main-content">
-        <h1>One Avenue</h1>
-        <p>El contenido detallado de este proyecto estará disponible próximamente.</p>
-        <p><a href="../index.html">Volver a la página principal</a></p>
+
+    <main class="npc-main-content">
+        <section class="npc-project-title-section">
+            <h1>One Avenue</h1>
+        </section>
+
+        <section class="npc-media-gallery">
+            <!-- 8 Imágenes y 2 Videos -->
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=oa_img1" alt="Imagen 1 One Avenue">
+                <p class="npc-media-caption">Descripción Imagen 1</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=oa_img2" alt="Imagen 2 One Avenue">
+                <p class="npc-media-caption">Descripción Imagen 2</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=oa_img3" alt="Imagen 3 One Avenue">
+                <p class="npc-media-caption">Descripción Imagen 3</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=oa_img4" alt="Imagen 4 One Avenue">
+                <p class="npc-media-caption">Descripción Imagen 4</p>
+            </div>
+            <div class="npc-media-item" data-media-type="video">
+                <div class="npc-video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_OA_1" title="Video 1 One Avenue" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="npc-media-caption">Descripción Video 1</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=oa_img5" alt="Imagen 5 One Avenue">
+                <p class="npc-media-caption">Descripción Imagen 5</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=oa_img6" alt="Imagen 6 One Avenue">
+                <p class="npc-media-caption">Descripción Imagen 6</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=oa_img7" alt="Imagen 7 One Avenue">
+                <p class="npc-media-caption">Descripción Imagen 7</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=oa_img8" alt="Imagen 8 One Avenue">
+                <p class="npc-media-caption">Descripción Imagen 8</p>
+            </div>
+            <div class="npc-media-item" data-media-type="video">
+                <div class="npc-video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_OA_2" title="Video 2 One Avenue" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="npc-media-caption">Descripción Video 2</p>
+            </div>
+        </section>
+
+        <section class="npc-project-description">
+            <h2>Descripción Detallada: One Avenue</h2>
+            <p>Contenido específico para One Avenue...</p>
+        </section>
     </main>
-    <footer class="placeholder-footer">
-        <p>&copy; LT Studio Desing</p>
+
+    <footer class="npc-footer">
+        <p>&copy; <span id="npc-current-year"></span> LT Studio Desing. Todos los derechos reservados.</p>
     </footer>
+
+    <div class="npc-media-counter">
+        <span id="npc-current-media">1</span> / <span id="npc-total-media">10</span>
+    </div>
+
+    <script>
+        document.getElementById('npc-current-year').textContent = new Date().getFullYear();
+    </script>
+    <script src="../assets/js/new_project_counter.js" defer></script>
+    <script>
+    // Script de reseteo agresivo (copiado de new_project_core.html)
+    function applyAggressiveResets() {
+        const elementsToReset = [
+            { el: document.documentElement, name: '<html>' },
+            { el: document.body, name: '<body>' },
+            { el: document.getElementById('wrapper'), name: '#wrapper' },
+            { el: document.getElementById('page'), name: '#page' },
+            { el: document.getElementById('contents'), name: '#contents' }
+        ];
+        console.log('--- INICIO SCRIPT DE RESETEO AGRESIVO (desde página de proyecto) ---');
+        elementsToReset.forEach(item => {
+            if (item.el) {
+                console.log(`Reseteando estilos para: ${item.name}`);
+                item.el.style.setProperty('transform', 'none', 'important');
+                item.el.style.setProperty('filter', 'none', 'important');
+                item.el.style.setProperty('perspective', 'none', 'important');
+                const currentOverflowY = window.getComputedStyle(item.el).overflowY;
+                if (currentOverflowY === 'hidden' || item.name === '<body>' || item.name === '#wrapper' || item.name === '#page' || item.name === '#contents') {
+                    item.el.style.setProperty('overflow', 'auto', 'important');
+                    item.el.style.setProperty('overflow-y', 'auto', 'important');
+                    console.log(`  - ${item.name}: overflow/overflow-y forzado a 'auto !important'`);
+                }
+            } else {
+                console.log(`Elemento no encontrado para reseteo: ${item.name}`);
+            }
+        });
+        console.log('--- FIN SCRIPT DE RESETEO AGRESIVO (desde página de proyecto) ---');
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOMContentLoaded (página de proyecto) - Ejecutando reseteo agresivo.');
+        applyAggressiveResets();
+    });
+    let attemptsProjectPage = 0;
+    const intervalIdProjectPage = setInterval(function() {
+        console.log(`Intento de reseteo periódico (página de proyecto) #${attemptsProjectPage + 1}`);
+        applyAggressiveResets();
+        attemptsProjectPage++;
+        if (attemptsProjectPage >= 30) { // Intentar por 3 segundos
+            clearInterval(intervalIdProjectPage);
+            console.log('Reseteo periódico (página de proyecto) finalizado.');
+        }
+    }, 100);
+    setTimeout(function() {
+        console.log('Reseteo agresivo tardío (3s) (página de proyecto).');
+        applyAggressiveResets();
+    }, 3000);
+    </script>
 </body>
 </html>

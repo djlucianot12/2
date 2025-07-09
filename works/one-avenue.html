@@ -1,69 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto: ONE AVENUE</title>
-    <link rel="stylesheet" href="../assets/css/bundle.css">
-    <link rel="stylesheet" href="../assets/css/project-detail.css">
+    <title>One Avenue - Próximamente</title>
+    <link rel="stylesheet" href="../assets/css/project-template-v2.css">
+    <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/svg+xml" href="../assets/favicons/favicon_ltsd.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="../assets/favicons/site.webmanifest">
     <meta name="theme-color" content="#ffffff">
+    <style>
+        body { display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        .ptv2-main-content-placeholder { flex-grow: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+        .ptv2-header, .ptv2-footer { flex-shrink: 0; }
+    </style>
 </head>
-<body class="project-page">
-    <div class="project-detail-page-wrapper">
-        <header class="l-header js-header b-fonts__medium project-detail-header">
-            <div class="p-header l-wide-container">
-                <div class="p-header__left js-logo">
-                    <div class="p-header__left__inner project-detail-header__inner">
-                        <a class="js-target--pointer__stateChange logo-link" href="../index.html">
-                            <div class="js-target__inner--pointer__stateChange js-target__parent--spring">LTSD</div>
-                        </a>
-                        <a class="js-nav__link js-target--pointer__stateChange back-to-projects-link" href="../index.html">
-                            <span class="js-target__inner--pointer__stateChange js-target__parent--spring">Back to Projects</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
+<body>
+    <header class="ptv2-header">
+        <div class="ptv2-header-content">
+            <a href="../index.html" class="ptv2-logo">LTSD</a>
+            <nav class="ptv2-nav">
+                <a href="../index.html#works" class="ptv2-nav-link">Back to Projects</a>
+            </nav>
+        </div>
+    </header>
 
-        <main class="project-detail-container">
-            <section class="project-title-section">
-                <h1>ONE AVENUE</h1>
-            </section>
+    <main class="ptv2-main-content-placeholder">
+        <div>
+            <h1>One Avenue</h1>
+            <p>El contenido detallado de este proyecto estará disponible próximamente.</p>
+            <p><a href="../index.html">Volver a la página principal</a></p>
+        </div>
+    </main>
 
-            <section class="project-media-scroll-gallery">
-                <img src="../assets/img/common/placeholder.svg?id=1" alt="Imagen 1 del proyecto ONE AVENUE">
-                <img src="../assets/img/common/placeholder.svg?id=2" alt="Imagen 2 del proyecto ONE AVENUE">
-                <img src="../assets/img/common/placeholder.svg?id=3" alt="Imagen 3 del proyecto ONE AVENUE">
-                <img src="../assets/img/common/placeholder.svg?id=4" alt="Imagen 4 del proyecto ONE AVENUE">
-                <img src="../assets/img/common/placeholder.svg?id=5" alt="Imagen 5 del proyecto ONE AVENUE">
-                <img src="../assets/img/common/placeholder.svg?id=6" alt="Imagen 6 del proyecto ONE AVENUE">
-                <img src="../assets/img/common/placeholder.svg?id=7" alt="Imagen 7 del proyecto ONE AVENUE">
-                <img src="../assets/img/common/placeholder.svg?id=8" alt="Imagen 8 del proyecto ONE AVENUE">
+    <footer class="ptv2-footer">
+        <p>&copy; <span id="ptv2-current-year"></span> LT Studio Desing. Todos los derechos reservados.</p>
+    </footer>
 
-                <div class="video-placeholder-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID_1_PLACEHOLDER" title="Video 1 del proyecto ONE AVENUE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="video-placeholder-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID_2_PLACEHOLDER" title="Video 2 del proyecto ONE AVENUE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            </section>
-
-            <section class="project-description-section">
-                 <p>Detalles del proyecto "ONE AVENUE" estarán disponibles próximamente. Este espacio está diseñado para mostrar información relevante sobre el proyecto, sus características, y el proceso de diseño involucrado. Se podrán incluir textos descriptivos, especificaciones técnicas, y cualquier otro detalle que enriquezca la presentación del trabajo realizado por LT Studio Desing.</p>
-            </section>
-        </main>
-
-        <footer class="project-footer">
-            <p>&copy; LT Studio Desing</p>
-        </footer>
-    </div>
-    <div id="scroll-media-counter" class="media-counter-container"><span id="media-current-index">1</span> foto de <span id="media-total-count">10</span></div>
-    <script src="../assets/js/page-transitions.js" defer></script>
-    <!-- <script src="../assets/js/project-scroll-counter.js" defer></script> -->
+    <script>
+        document.getElementById('ptv2-current-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>

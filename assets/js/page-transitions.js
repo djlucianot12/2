@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (event.target !== this && this.contains(event.target)) {
                      event.preventDefault();
                 }
-                console.log('Project link clicked. Target URL:', targetUrl); // DEBUG
+                // console.log('Project link clicked. Target URL:', targetUrl);
                 this.classList.add('is-transitioning');
-                console.log('Added .is-transitioning to:', this); // DEBUG
+                // console.log('Added .is-transitioning to:', this);
                 document.body.classList.add('page-transition-out');
-                console.log('Added .page-transition-out to body.');// DEBUG
+                // console.log('Added .page-transition-out to body.');
                 setTimeout(() => {
-                    console.log('Navigating to:', targetUrl); // DEBUG
+                    // console.log('Navigating to:', targetUrl);
                     window.location.href = targetUrl;
                 }, 550);
             });
@@ -25,102 +25,96 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lógica para páginas de detalle (project-page)
     if (document.body.classList.contains('project-page')) {
-        console.log('Página de detalle detectada (project-page class en body).'); // DEBUG
+        // console.log('Página de detalle detectada (project-page class en body).');
 
-        // Animación de entrada
         requestAnimationFrame(() => {
-            console.log('Añadiendo clase page-transition-in al body.'); // DEBUG
+            // console.log('Añadiendo clase page-transition-in al body.');
             document.body.classList.add('page-transition-in');
-            console.log('Body classList DESPUÉS de añadir page-transition-in:', document.body.classList.toString()); // DEBUG
+            // console.log('Body classList DESPUÉS de añadir page-transition-in:', document.body.classList.toString());
         });
 
-        // --- INICIO DE LÓGICA INTEGRADA DE project-scroll-counter.js ---
-        const mediaGallery = document.querySelector('.project-media-scroll-gallery');
-        const currentIndexSpan = document.getElementById('media-current-index');
-        const totalCountSpan = document.getElementById('media-total-count');
-        const scrollMediaCounterElement = document.getElementById('scroll-media-counter');
+        setTimeout(() => {
+            // console.log('Contador Scroll - Iniciando lógica del contador después de un delay de 250ms.');
 
-        // DEBUG: Verificar selección de elementos del contador
-        console.log('Contador Scroll - Elemento scrollMediaCounterElement:', scrollMediaCounterElement);
-        console.log('Contador Scroll - Elemento mediaGallery:', mediaGallery);
-        console.log('Contador Scroll - Elemento currentIndexSpan:', currentIndexSpan);
-        console.log('Contador Scroll - Elemento totalCountSpan:', totalCountSpan);
+            const mediaGallery = document.querySelector('.project-media-scroll-gallery');
+            const currentIndexSpan = document.getElementById('media-current-index');
+            const totalCountSpan = document.getElementById('media-total-count');
+            const scrollMediaCounterElement = document.getElementById('scroll-media-counter');
 
-        if (!mediaGallery || !currentIndexSpan || !totalCountSpan || !scrollMediaCounterElement) {
-            if (scrollMediaCounterElement) {
+            // console.log('Contador Scroll - Elemento scrollMediaCounterElement:', scrollMediaCounterElement);
+            // console.log('Contador Scroll - Elemento mediaGallery:', mediaGallery);
+            // console.log('Contador Scroll - Elemento currentIndexSpan:', currentIndexSpan);
+            // console.log('Contador Scroll - Elemento totalCountSpan:', totalCountSpan);
+
+            if (!mediaGallery || !currentIndexSpan || !totalCountSpan || !scrollMediaCounterElement) {
+                if (scrollMediaCounterElement) {
+                    scrollMediaCounterElement.style.display = 'none';
+                }
+                // console.warn('Contador Scroll - Elementos no encontrados DESPUÉS DEL DELAY. El contador no funcionará.');
+                return;
+            }
+
+            const mediaElements = Array.from(mediaGallery.querySelectorAll('img, .video-placeholder-container'));
+            const totalMedia = mediaElements.length;
+            // console.log('Contador Scroll - mediaElements count:', mediaElements.length);
+
+            if (totalMedia === 0) {
                 scrollMediaCounterElement.style.display = 'none';
-            }
-            console.warn('Contador Scroll - Elementos no encontrados. El contador no funcionará.');
-            return; // No continuar con la lógica del contador si faltan elementos
-        }
-
-        const mediaElements = Array.from(mediaGallery.querySelectorAll('img, .video-placeholder-container'));
-        const totalMedia = mediaElements.length;
-        console.log('Contador Scroll - mediaElements count:', mediaElements.length); // DEBUG
-
-        if (totalMedia === 0) {
-            scrollMediaCounterElement.style.display = 'none';
-            return; // No continuar si no hay medios
-        }
-
-        totalCountSpan.textContent = totalMedia;
-        currentIndexSpan.textContent = '1';
-
-        function updateScrollCounterSimplified() {
-            console.log('Contador Scroll - updateScrollCounterSimplified triggered'); // DEBUG
-            let elementInViewIndex = 0;
-            const windowHeight = window.innerHeight;
-            const activationPoint = windowHeight * 0.3;
-            let found = false;
-
-            for (let i = 0; i < mediaElements.length; i++) {
-                const el = mediaElements[i];
-                const rect = el.getBoundingClientRect();
-
-                if (rect.top <= activationPoint && rect.bottom >= activationPoint) {
-                    elementInViewIndex = i;
-                    found = true;
-                    break;
-                }
-                if (!found && rect.top < windowHeight && rect.bottom >= 0) { // Si no se ha encontrado uno en el punto de activación, tomar el primero visible
-                    elementInViewIndex = i;
-                }
+                return;
             }
 
-            // Si después del bucle no se encontró nada (ej. todo está arriba o abajo del viewport)
-            // y hay elementos, intentar deducir si estamos al principio o al final.
-            if (!found && mediaElements.length > 0) {
-                const firstElRect = mediaElements[0].getBoundingClientRect();
-                const lastElRect = mediaElements[mediaElements.length - 1].getBoundingClientRect();
-                if (firstElRect.bottom < activationPoint) { // Todos los elementos están por encima del punto de activación
-                    elementInViewIndex = mediaElements.length - 1;
-                } else if (lastElRect.top > activationPoint) { // Todos los elementos están por debajo
-                    elementInViewIndex = 0;
+            totalCountSpan.textContent = totalMedia;
+            currentIndexSpan.textContent = '1'; // Restaurado a textContent normal
+
+            function updateScrollCounterSimplified() {
+                let elementInViewIndex = 0;
+                const windowHeight = window.innerHeight;
+                const activationPoint = windowHeight * 0.3;
+                let found = false;
+
+                for (let i = 0; i < mediaElements.length; i++) {
+                    const el = mediaElements[i];
+                    const rect = el.getBoundingClientRect();
+
+                    if (rect.top <= activationPoint && rect.bottom >= activationPoint) {
+                        elementInViewIndex = i;
+                        found = true;
+                        break;
+                    }
+                    if (!found && rect.top < windowHeight && rect.bottom >= 0) {
+                        elementInViewIndex = i;
+                    }
                 }
-                // Si no, se mantiene el último elementInViewIndex asignado (el primero parcialmente visible)
-            }
 
+                if (!found && mediaElements.length > 0) {
+                    const firstElRect = mediaElements[0].getBoundingClientRect();
+                    const lastElRect = mediaElements[mediaElements.length - 1].getBoundingClientRect();
+                    if (firstElRect.bottom < activationPoint) {
+                        elementInViewIndex = mediaElements.length - 1;
+                    } else if (lastElRect.top > activationPoint) {
+                        elementInViewIndex = 0;
+                    }
+                } else if (mediaElements.length === 0) {
+                     elementInViewIndex = 0;
+                }
 
-            console.log('Contador Scroll - Índice simplificado detectado:', elementInViewIndex);
-
-            if (currentIndexSpan) {
-                const newIndexText = String(elementInViewIndex + 1);
-                if (currentIndexSpan.textContent !== newIndexText) {
-                    console.log('Contador Scroll - ACTUALIZANDO contador a:', newIndexText);
-                    currentIndexSpan.textContent = newIndexText;
+                if (currentIndexSpan) {
+                    const newIndexText = String(elementInViewIndex + 1);
+                    if (currentIndexSpan.textContent !== newIndexText) {
+                        currentIndexSpan.textContent = newIndexText; // Restaurado a textContent normal
+                    }
                 }
             }
-        }
 
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            if (scrollTimeout) {
-                clearTimeout(scrollTimeout);
-            }
-            scrollTimeout = setTimeout(updateScrollCounterSimplified, 60);
-        }, { passive: true });
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+                scrollTimeout = setTimeout(updateScrollCounterSimplified, 60);
+            }, { passive: true });
 
-        setTimeout(updateScrollCounterSimplified, 150);
-        // --- FIN DE LÓGICA INTEGRADA DE project-scroll-counter.js ---
+            setTimeout(updateScrollCounterSimplified, 150);
+        }, 250);
     }
 });

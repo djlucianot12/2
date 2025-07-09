@@ -5,8 +5,8 @@ body.project-page {
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    opacity: 1; /* CAMBIO: Iniciar visible por defecto para depuración */
-    /* transform: scale(0.95) translateY(20px); */ /* Comentado para depuración */
+    opacity: 0; /* Restaurado para animación de entrada */
+    transform: scale(0.95) translateY(20px); /* Restaurado para animación de entrada */
 }
 
 body.project-page.page-transition-in {
@@ -122,6 +122,14 @@ body.project-page.page-transition-in {
     font-weight: 500;
     z-index: 1000;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    /* border: 1px solid orange; */ /* BORDE DE DEPURACIÓN ELIMINADO */
+}
+
+#media-current-index {
+    /* border: 1px dashed red; */ /* BORDE DE DEPURACIÓN ELIMINADO */
+}
+#media-total-count {
+    /* border: 1px dashed blue; */ /* BORDE DE DEPURACIÓN ELIMINADO */
 }
 
 

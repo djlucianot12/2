@@ -108,42 +108,79 @@
     </script>
     <script src="../assets/js/project-template-v2-counter.js" defer></script>
     <script>
-    // Intento de resetear transformaciones que puedan romper position:fixed
+    // Script de reseteo más agresivo
+    function applyAggressiveResets() {
+        const elementsToReset = [
+            { el: document.documentElement, name: '<html>' },
+            { el: document.body, name: '<body>' },
+            { el: document.getElementById('wrapper'), name: '#wrapper' },
+            { el: document.getElementById('page'), name: '#page' },
+            { el: document.getElementById('contents'), name: '#contents' }
+        ];
+
+        console.log('--- INICIO SCRIPT DE RESETEO AGRESIVO ---');
+
+        elementsToReset.forEach(item => {
+            if (item.el) {
+                console.log(`Reseteando estilos para: ${item.name}`);
+                item.el.style.setProperty('transform', 'none', 'important');
+                item.el.style.setProperty('filter', 'none', 'important');
+                item.el.style.setProperty('perspective', 'none', 'important');
+
+                // Intentar forzar el scroll si está bloqueado
+                // Comprobamos si el overflow-y está 'hidden' antes de cambiarlo
+                const currentOverflowY = window.getComputedStyle(item.el).overflowY;
+                if (currentOverflowY === 'hidden') {
+                    item.el.style.setProperty('overflow-y', 'auto', 'important');
+                    console.log(`  - ${item.name}: overflow-y cambiado de 'hidden' a 'auto !important'`);
+                } else if (currentOverflowY === 'visible' && (item.name === '#wrapper' || item.name === '#page' || item.name === '#contents')) {
+                    // Si es visible en un wrapper, podría ser problemático para el scroll interno
+                    // item.el.style.setProperty('overflow-y', 'auto', 'important');
+                    // console.log(`  - ${item.name}: overflow-y era 'visible', intentando 'auto !important'`);
+                }
+
+
+                // Para el body específicamente, asegurarnos de que pueda scrollear
+                if (item.name === '<body>') {
+                   item.el.style.setProperty('overflow', 'auto', 'important');
+                   console.log(`  - <body>: overflow forzado a 'auto !important'`);
+                }
+                 if (item.name === '#wrapper' || item.name === '#page' || item.name === '#contents') {
+                   item.el.style.setProperty('overflow', 'auto', 'important');
+                   console.log(`  - ${item.name}: overflow forzado a 'auto !important'`);
+                }
+
+
+            } else {
+                console.log(`Elemento no encontrado para reseteo: ${item.name}`);
+            }
+        });
+        console.log('--- FIN SCRIPT DE RESETEO AGRESIVO ---');
+    }
+
+    // Ejecutar en DOMContentLoaded
     document.addEventListener('DOMContentLoaded', function() {
-        const attemptReset = (el) => {
-            if (el) {
-                el.style.transform = 'none';
-                el.style.filter = 'none';
-                el.style.perspective = 'none';
-            }
-        };
-
-        attemptReset(document.documentElement); // <html>
-        attemptReset(document.body);          // <body>
-
-        // IDs comunes de wrappers en index.html que podrían persistir o ser inyectados
-        attemptReset(document.getElementById('wrapper'));
-        attemptReset(document.getElementById('page'));
-        attemptReset(document.getElementById('contents'));
-
-        console.log('Intento de reseteo de transform/filter/perspective aplicado a html, body, #wrapper, #page, #contents.');
+        console.log('DOMContentLoaded - Ejecutando reseteo agresivo.');
+        applyAggressiveResets();
     });
-    // También intentar un reseteo un poco después, por si otros scripts actúan más tarde
-    setTimeout(() => {
-        const attemptReset = (el) => {
-            if (el) {
-                el.style.transform = 'none';
-                el.style.filter = 'none';
-                el.style.perspective = 'none';
-            }
-        };
-        attemptReset(document.documentElement);
-        attemptReset(document.body);
-        attemptReset(document.getElementById('wrapper'));
-        attemptReset(document.getElementById('page'));
-        attemptReset(document.getElementById('contents'));
-        console.log('Segundo intento de reseteo de transform/filter/perspective.');
-    }, 500);
+
+    // Ejecutar repetidamente por un corto tiempo para combatir scripts que actúan tarde
+    let attempts = 0;
+    const intervalId = setInterval(function() {
+        console.log(`Intento de reseteo periódico #${attempts + 1}`);
+        applyAggressiveResets();
+        attempts++;
+        if (attempts >= 30) { // Intentar por 3 segundos (30 * 100ms)
+            clearInterval(intervalId);
+            console.log('Reseteo periódico finalizado.');
+        }
+    }, 100); // Cada 100ms
+
+    // También un último intento después de que todo lo demás pueda haber cargado
+     setTimeout(function() {
+        console.log('Reseteo agresivo tardío (3s).');
+        applyAggressiveResets();
+    }, 3000);
     </script>
 </body>
 </html>

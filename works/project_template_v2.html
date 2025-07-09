@@ -13,7 +13,7 @@
     <link rel="manifest" href="../assets/favicons/site.webmanifest">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body>
+<body> <!-- Eliminada la clase project-page -->
 
     <header class="ptv2-header">
         <div class="ptv2-header-content">
@@ -107,5 +107,43 @@
         document.getElementById('ptv2-current-year').textContent = new Date().getFullYear();
     </script>
     <script src="../assets/js/project-template-v2-counter.js" defer></script>
+    <script>
+    // Intento de resetear transformaciones que puedan romper position:fixed
+    document.addEventListener('DOMContentLoaded', function() {
+        const attemptReset = (el) => {
+            if (el) {
+                el.style.transform = 'none';
+                el.style.filter = 'none';
+                el.style.perspective = 'none';
+            }
+        };
+
+        attemptReset(document.documentElement); // <html>
+        attemptReset(document.body);          // <body>
+
+        // IDs comunes de wrappers en index.html que podrían persistir o ser inyectados
+        attemptReset(document.getElementById('wrapper'));
+        attemptReset(document.getElementById('page'));
+        attemptReset(document.getElementById('contents'));
+
+        console.log('Intento de reseteo de transform/filter/perspective aplicado a html, body, #wrapper, #page, #contents.');
+    });
+    // También intentar un reseteo un poco después, por si otros scripts actúan más tarde
+    setTimeout(() => {
+        const attemptReset = (el) => {
+            if (el) {
+                el.style.transform = 'none';
+                el.style.filter = 'none';
+                el.style.perspective = 'none';
+            }
+        };
+        attemptReset(document.documentElement);
+        attemptReset(document.body);
+        attemptReset(document.getElementById('wrapper'));
+        attemptReset(document.getElementById('page'));
+        attemptReset(document.getElementById('contents'));
+        console.log('Segundo intento de reseteo de transform/filter/perspective.');
+    }, 500);
+    </script>
 </body>
 </html>

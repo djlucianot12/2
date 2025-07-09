@@ -2,81 +2,83 @@ document.addEventListener('DOMContentLoaded', () => {
     const gallery = document.querySelector('.scroll-gallery');
     const currentImageSpan = document.getElementById('current-image');
     const totalImagesSpan = document.getElementById('total-images');
-    const images = gallery.querySelectorAll('img');
 
-    if (!gallery || !currentImageSpan || !totalImagesSpan || images.length === 0) {
-        console.error('Counter elements not found or no images in gallery.');
+    if (!gallery || !currentImageSpan || !totalImagesSpan) {
+        console.error('Essential elements for counter not found.');
+        if (!gallery) console.error('Gallery element (.scroll-gallery) is missing.');
+        if (!currentImageSpan) console.error('Current image span (#current-image) is missing.');
+        if (!totalImagesSpan) console.error('Total images span (#total-images) is missing.');
         return;
     }
 
-    console.log('Counter script loaded.');
-    console.log('Gallery:', gallery);
+    // Query images *after* ensuring gallery exists
+    const images = gallery.querySelectorAll('img');
+
+    if (images.length === 0) {
+        console.warn('No images found in the gallery. Counter will not operate.');
+        totalImagesSpan.textContent = '0';
+        currentImageSpan.textContent = '0';
+        return;
+    }
+
+    console.log('Counter script loaded successfully.');
+    console.log('Gallery element:', gallery);
     console.log('Current image span:', currentImageSpan);
     console.log('Total images span:', totalImagesSpan);
-    console.log('Images found:', images.length);
+    console.log(`Found ${images.length} images.`);
 
     totalImagesSpan.textContent = images.length;
-    currentImageSpan.textContent = '1'; // Initial image
+    // Set initial image to 1, assuming the first image is visible by default.
+    // This will be updated by the scroll handler if necessary.
+    currentImageSpan.textContent = '1';
 
     let debounceTimer;
 
+    function updateCurrentImage() {
+        // gallery.scrollLeft is the amount the content of gallery has been scrolled to the left.
+        // gallery.offsetWidth is the visible width of the gallery.
+        // The center of the visible part of the gallery is gallery.scrollLeft + gallery.offsetWidth / 2.
+        const galleryViewCenter = gallery.scrollLeft + gallery.offsetWidth / 2;
+        console.log(`Gallery scrollLeft: ${gallery.scrollLeft}, galleryViewCenter: ${galleryViewCenter.toFixed(2)}`);
+
+        let closestImageIndex = 0;
+        let smallestDistanceToCenter = Infinity;
+
+        images.forEach((img, index) => {
+            // img.offsetLeft is the position of the left edge of the image relative to gallery.
+            // img.offsetWidth is the width of the image.
+            // The center of the image is img.offsetLeft + img.offsetWidth / 2.
+            const imageCenter = img.offsetLeft + img.offsetWidth / 2;
+            const distance = Math.abs(galleryViewCenter - imageCenter);
+
+            console.log(`Image ${index + 1}: offsetLeft=${img.offsetLeft}, width=${img.offsetWidth}, center=${imageCenter.toFixed(2)}, distanceToViewCenter=${distance.toFixed(2)}`);
+
+            if (distance < smallestDistanceToCenter) {
+                smallestDistanceToCenter = distance;
+                closestImageIndex = index;
+            }
+        });
+
+        const currentVisibleImage = closestImageIndex + 1;
+        console.log(`Closest image index: ${closestImageIndex}, Displaying: ${currentVisibleImage}`);
+        currentImageSpan.textContent = currentVisibleImage;
+    }
+
     gallery.addEventListener('scroll', () => {
-        console.log('Scroll event triggered on gallery.');
+        console.log('Scroll event detected on gallery.');
         clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-            let currentImageIndex = 0;
-            const galleryScrollLeft = gallery.scrollLeft;
-            const galleryWidth = gallery.offsetWidth;
-
-            console.log('Gallery scrollLeft:', galleryScrollLeft);
-
-            for (let i = 0; i < images.length; i++) {
-                const image = images[i];
-                const imageLeft = image.offsetLeft - gallery.offsetLeft; // Position relative to gallery
-                const imageWidth = image.offsetWidth;
-
-                // Check if the center of the image is within the viewport of the gallery
-                // Adding a small tolerance for precision issues
-                if (galleryScrollLeft >= imageLeft - imageWidth / 2 - 5 && galleryScrollLeft < imageLeft + imageWidth / 2 - 5) {
-                    currentImageIndex = i + 1;
-                    break;
-                }
-            }
-
-            // If no image is perfectly centered, try to determine by proximity
-            // This happens often at the very beginning or end of the scroll
-            if (currentImageIndex === 0) {
-                // Check first image
-                if (galleryScrollLeft < (images[0].offsetLeft - gallery.offsetLeft + images[0].offsetWidth / 2)) {
-                    currentImageIndex = 1;
-                }
-                // Check last image
-                else if (galleryScrollLeft >= (images[images.length-1].offsetLeft - gallery.offsetLeft - images[images.length-1].offsetWidth / 2) ) {
-                     currentImageIndex = images.length;
-                } else {
-                    // Fallback or more sophisticated proximity logic needed if issues persist
-                    // For now, let's find the closest one based on scrollLeft
-                    let minDiff = Infinity;
-                    for (let i = 0; i < images.length; i++) {
-                        const image = images[i];
-                        const imageCenter = image.offsetLeft - gallery.offsetLeft + image.offsetWidth / 2;
-                        const diff = Math.abs(galleryScrollLeft + galleryWidth / 2 - imageCenter);
-                        if (diff < minDiff) {
-                            minDiff = diff;
-                            currentImageIndex = i + 1;
-                        }
-                    }
-                }
-            }
-
-
-            console.log('Current image index calculated:', currentImageIndex);
-            currentImageSpan.textContent = currentImageIndex;
-        }, 50); // Debounce time
+        debounceTimer = setTimeout(updateCurrentImage, 60); // Slightly increased debounce
     });
 
-    // Initial check in case the first image isn't perfectly aligned or for static state
-    // Trigger scroll logic once to set initial state correctly if needed
-    // gallery.dispatchEvent(new Event('scroll'));
-    // Simpler: just set to 1 initially as per currentImageSpan.textContent = '1';
+    // Call once on load to set the initial image count correctly,
+    // especially if the gallery isn't scrolled to the very beginning
+    // or if images have variable widths affecting initial "center".
+    // Use a small timeout to ensure layout is stable.
+    setTimeout(updateCurrentImage, 100);
+
+    // Optional: Add a resize listener if gallery/image sizes can change dynamically
+    // window.addEventListener('resize', () => {
+    //     clearTimeout(debounceTimer);
+    //     debounceTimer = setTimeout(updateCurrentImage, 100);
+    // });
 });

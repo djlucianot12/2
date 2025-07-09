@@ -30,14 +30,24 @@ a:hover {
     max-width: 900px; /* Ancho máximo para el contenido del proyecto */
     margin: 0 auto;   /* Centrar el contenido */
     padding: 20px;    /* Padding alrededor del contenido */
-    /* padding-top será ajustado después si el header es fijo */
+    /* Padding-top para compensar la altura del header fijo.
+       Altura estimada del header: (padding 10px*2) + font-size ~22px + border 1px = ~43px.
+       Usaremos 60px para dar un margen. */
+    padding-top: 60px;
 }
 
-/* --- Header (Estilos Iniciales - NO FIJO TODAVÍA) --- */
+/* --- Header (Fijo) --- */
 .npc-header {
-    background-color: #f8f8f8; /* Un fondo ligeramente gris para el header */
+    background-color: #f8f8f8;
     padding: 10px 20px;
     border-bottom: 1px solid #dddddd;
+    position: fixed !important; /* Forzar posición fija */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegurar que esté por encima de otro contenido */
+    box-sizing: border-box; /* Padding y border no añaden al width/height total */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra sutil */
 }
 
 .npc-header-content {
@@ -162,33 +172,11 @@ a:hover {
     font-size: 0.8em;
     text-align: center;
     width: fit-content; /* Ajustar al contenido */
-    margin: 20px auto; /* Centrado para visibilidad inicial */
-    /* Los estilos para position:fixed se añadirán en el paso 6 del plan */
-}
-
-/* --- Estilos para cuando el header sea fijo (se activarán después) --- */
-/*
-body.npc-header-fixed .npc-main-content {
-    padding-top: 70px; /* Ajustar según la altura real del header
-}
-
-.npc-header.is-fixed {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-*/
-
-/* --- Estilos para cuando el contador sea fijo (se activarán después) --- */
-/*
-.npc-media-counter.is-fixed {
-    position: fixed !important;
+    /* margin: 20px auto; */ /* Eliminado para que no interfiera con fixed */
+    position: fixed !important; /* Forzar posición fija */
     bottom: 20px;
     right: 20px;
-    z-index: 1000;
-    margin: 0;
+    z-index: 1000; /* Consistente con el header */
 }
-*/
+
+/* Comentarios de secciones .is-fixed eliminados ya que los estilos se aplican directamente ahora */

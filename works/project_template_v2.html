@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla de Proyecto V2</title>
+    <link rel="stylesheet" href="../assets/css/project-template-v2.css">
+    <!-- Favicons (copiados de la estructura existente) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicons/favicon_ltsd.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="../assets/favicons/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+
+    <header class="ptv2-header">
+        <div class="ptv2-header-content">
+            <a href="../index.html" class="ptv2-logo">LTSD</a>
+            <nav class="ptv2-nav">
+                <a href="../index.html#works" class="ptv2-nav-link">Back to Projects</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="ptv2-main-content">
+        <section class="ptv2-project-title-section">
+            <h1>Nombre del Proyecto de Ejemplo</h1>
+        </section>
+
+        <section class="ptv2-media-gallery">
+            <!-- Elementos multimedia se listarán aquí verticalmente -->
+            <div class="ptv2-media-item">
+                <img src="../assets/img/common/placeholder.svg?id=v2-1" alt="Media 1">
+                <p class="ptv2-media-caption">Descripción de Media 1</p>
+            </div>
+            <div class="ptv2-media-item">
+                <img src="../assets/img/common/placeholder.svg?id=v2-2" alt="Media 2">
+                <p class="ptv2-media-caption">Descripción de Media 2</p>
+            </div>
+            <div class="ptv2-media-item">
+                <!-- Ejemplo de Video Placeholder -->
+                <div class="ptv2-video-wrapper">
+                    <iframe
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="ptv2-media-caption">Descripción del Video</p>
+            </div>
+            <div class="ptv2-media-item">
+                <img src="../assets/img/common/placeholder.svg?id=v2-3" alt="Media 3">
+                <p class="ptv2-media-caption">Descripción de Media 3</p>
+            </div>
+            <div class="ptv2-media-item">
+                <img src="../assets/img/common/placeholder.svg?id=v2-4" alt="Media 4">
+                <p class="ptv2-media-caption">Descripción de Media 4</p>
+            </div>
+        </section>
+
+        <section class="ptv2-project-description">
+            <h2>Descripción del Proyecto</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Más texto para asegurar el scroll...</p>
+            <p>Más texto para asegurar el scroll...</p>
+            <p>Más texto para asegurar el scroll...</p>
+            <p>Más texto para asegurar el scroll...</p>
+            <p>Más texto para asegurar el scroll...</p>
+        </section>
+    </main>
+
+    <footer class="ptv2-footer">
+        <p>&copy; <span id="ptv2-current-year"></span> LT Studio Desing. Todos los derechos reservados.</p>
+    </footer>
+
+    <div class="ptv2-media-counter">
+        <span id="ptv2-current-media">1</span> / <span id="ptv2-total-media">0</span>
+    </div>
+
+    <script>
+        // Pequeño script para el año del footer
+        document.getElementById('ptv2-current-year').textContent = new Date().getFullYear();
+    </script>
+    <!-- El script del contador se añadirá aquí más tarde: assets/js/project-template-v2-counter.js -->
+</body>
+</html>

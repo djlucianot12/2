@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Core</title>
+    <link rel="stylesheet" href="../assets/css/new_project_core.css">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicons/favicon_ltsd.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="../assets/favicons/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+
+    <header class="npc-header">
+        <div class="npc-header-content">
+            <div class="npc-header-left">
+                <a href="../index.html" class="npc-logo">LTSD</a>
+                <nav class="npc-nav">
+                    <a href="../index.html#works" class="npc-nav-link">Back to Projects</a>
+                </nav>
+            </div>
+            <div class="npc-header-right">
+                <span class="npc-project-date">Enero 2024</span> <!-- Fecha estática de ejemplo -->
+            </div>
+        </div>
+    </header>
+
+    <main class="npc-main-content">
+        <section class="npc-project-title-section">
+            <h1>Título del Proyecto Principal</h1>
+        </section>
+
+        <section class="npc-media-gallery">
+            <!-- 8 Imágenes y 2 Videos -->
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=core-img1" alt="Imagen 1 del Proyecto Core">
+                <p class="npc-media-caption">Descripción Imagen 1</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=core-img2" alt="Imagen 2 del Proyecto Core">
+                <p class="npc-media-caption">Descripción Imagen 2</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=core-img3" alt="Imagen 3 del Proyecto Core">
+                <p class="npc-media-caption">Descripción Imagen 3</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=core-img4" alt="Imagen 4 del Proyecto Core">
+                <p class="npc-media-caption">Descripción Imagen 4</p>
+            </div>
+            <div class="npc-media-item" data-media-type="video">
+                <div class="npc-video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_PLACEHOLDER_1" title="Video 1 del Proyecto Core" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="npc-media-caption">Descripción Video 1</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=core-img5" alt="Imagen 5 del Proyecto Core">
+                <p class="npc-media-caption">Descripción Imagen 5</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=core-img6" alt="Imagen 6 del Proyecto Core">
+                <p class="npc-media-caption">Descripción Imagen 6</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=core-img7" alt="Imagen 7 del Proyecto Core">
+                <p class="npc-media-caption">Descripción Imagen 7</p>
+            </div>
+            <div class="npc-media-item" data-media-type="image">
+                <img src="../assets/img/common/placeholder.svg?id=core-img8" alt="Imagen 8 del Proyecto Core">
+                <p class="npc-media-caption">Descripción Imagen 8</p>
+            </div>
+            <div class="npc-media-item" data-media-type="video">
+                <div class="npc-video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_PLACEHOLDER_2" title="Video 2 del Proyecto Core" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="npc-media-caption">Descripción Video 2</p>
+            </div>
+        </section>
+
+        <section class="npc-project-description">
+            <h2>Descripción Detallada del Proyecto</h2>
+            <p>Este es el espacio para la descripción detallada del proyecto. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <p>Contenido adicional para generar suficiente scroll y probar el comportamiento de los elementos fijos y el contador.</p>
+            <p>Párrafo extra 1.</p>
+            <p>Párrafo extra 2.</p>
+            <p>Párrafo extra 3.</p>
+        </section>
+    </main>
+
+    <footer class="npc-footer">
+        <p>&copy; <span id="npc-current-year"></span> LT Studio Desing. Todos los derechos reservados.</p>
+    </footer>
+
+    <div class="npc-media-counter">
+        <span id="npc-current-media">1</span> / <span id="npc-total-media">10</span>
+    </div>
+
+    <script>
+        document.getElementById('npc-current-year').textContent = new Date().getFullYear();
+    </script>
+    <script src="../assets/js/new_project_counter.js" defer></script>
+    <!-- Script de reseteo agresivo para #wrapper irá aquí si es necesario -->
+</body>
+</html>

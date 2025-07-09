@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hikawa Gardens - Próximamente</title>
-    <link rel="stylesheet" href="../assets/css/project-template-v2.css">
+    <link rel="stylesheet" href="../assets/css/new_project_core.css"> <!-- Enlazará al nuevo CSS -->
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/svg+xml" href="../assets/favicons/favicon_ltsd.svg">
@@ -13,35 +13,25 @@
     <link rel="manifest" href="../assets/favicons/site.webmanifest">
     <meta name="theme-color" content="#ffffff">
     <style>
-        body { display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        .ptv2-main-content-placeholder { flex-grow: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; }
-        .ptv2-header, .ptv2-footer { flex-shrink: 0; }
+        body { display: flex; flex-direction: column; min-height: 100vh; margin: 0; font-family: sans-serif; }
+        .placeholder-main-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+        .placeholder-header, .placeholder-footer { flex-shrink: 0; background-color: #f0f0f0; padding: 10px 20px; text-align: center; }
+        .placeholder-header a, .placeholder-footer a { text-decoration: none; color: #333; }
+        .placeholder-header .logo { font-weight: bold; font-size: 1.2em; }
     </style>
 </head>
 <body>
-    <header class="ptv2-header">
-        <div class="ptv2-header-content">
-            <a href="../index.html" class="ptv2-logo">LTSD</a>
-            <nav class="ptv2-nav">
-                <a href="../index.html#works" class="ptv2-nav-link">Back to Projects</a>
-            </nav>
-        </div>
+    <header class="placeholder-header">
+        <a href="../index.html" class="logo">LTSD</a> |
+        <a href="../index.html#works">Back to Projects</a>
     </header>
-
-    <main class="ptv2-main-content-placeholder">
-        <div>
-            <h1>Hikawa Gardens</h1>
-            <p>El contenido detallado de este proyecto estará disponible próximamente.</p>
-            <p><a href="../index.html">Volver a la página principal</a></p>
-        </div>
+    <main class="placeholder-main-content">
+        <h1>Hikawa Gardens</h1>
+        <p>El contenido detallado de este proyecto estará disponible próximamente.</p>
+        <p><a href="../index.html">Volver a la página principal</a></p>
     </main>
-
-    <footer class="ptv2-footer">
-        <p>&copy; <span id="ptv2-current-year"></span> LT Studio Desing. Todos los derechos reservados.</p>
+    <footer class="placeholder-footer">
+        <p>&copy; LT Studio Desing</p>
     </footer>
-
-    <script>
-        document.getElementById('ptv2-current-year').textContent = new Date().getFullYear();
-    </script>
 </body>
 </html>

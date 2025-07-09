@@ -1,0 +1,194 @@
+/* assets/css/new_project_core.css */
+
+/* --- Reseteo Básico y Estilos Globales Mínimos --- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* Fuente simple y estándar para empezar */
+    line-height: 1.6;
+    background-color: #ffffff; /* Fondo blanco por defecto para la página del proyecto */
+    color: #333333; /* Color de texto principal oscuro */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Evita espacio extra debajo de las imágenes */
+}
+
+a {
+    color: #007bff; /* Azul estándar para enlaces */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* --- Contenedor Principal del Contenido --- */
+.npc-main-content {
+    max-width: 900px; /* Ancho máximo para el contenido del proyecto */
+    margin: 0 auto;   /* Centrar el contenido */
+    padding: 20px;    /* Padding alrededor del contenido */
+    /* padding-top será ajustado después si el header es fijo */
+}
+
+/* --- Header (Estilos Iniciales - NO FIJO TODAVÍA) --- */
+.npc-header {
+    background-color: #f8f8f8; /* Un fondo ligeramente gris para el header */
+    padding: 10px 20px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.npc-header-content {
+    max-width: 900px; /* Mismo ancho que el main-content para alineación */
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.npc-header-left {
+    display: flex;
+    align-items: center;
+}
+
+.npc-logo {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #333333;
+    margin-right: 20px;
+}
+
+.npc-logo:hover {
+    text-decoration: none;
+}
+
+.npc-nav-link {
+    color: #555555;
+}
+
+.npc-project-date {
+    font-size: 0.9em;
+    color: #777777;
+}
+
+/* --- Título del Proyecto --- */
+.npc-project-title-section {
+    text-align: center;
+    padding: 25px 0;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.npc-project-title-section h1 {
+    margin: 0;
+    font-size: 2.2em;
+}
+
+/* --- Galería de Medios (Disposición Vertical) --- */
+.npc-media-gallery {
+    margin-bottom: 30px;
+}
+
+.npc-media-item {
+    margin-bottom: 30px; /* Espacio entre cada imagen/video */
+    background-color: #fdfdfd; /* Un fondo muy sutil para cada item */
+    padding: 10px;
+    border: 1px solid #f0f0f0;
+    border-radius: 4px;
+}
+
+.npc-media-item img {
+    border-radius: 3px; /* Bordes ligeramente redondeados para las imágenes */
+    margin: 0 auto 8px auto; /* Centrar imagen y espacio para caption */
+}
+
+.npc-video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* Proporción 16:9 para video */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000000; /* Fondo negro para el wrapper del video */
+    border-radius: 3px;
+    margin-bottom: 8px;
+}
+
+.npc-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.npc-media-caption {
+    font-size: 0.85em;
+    color: #666666;
+    text-align: center;
+    margin-top: 5px;
+}
+
+/* --- Descripción del Proyecto --- */
+.npc-project-description {
+    padding: 20px 0;
+    border-top: 1px solid #eeeeee;
+    margin-top: 20px;
+}
+
+.npc-project-description h2 {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+}
+
+/* --- Footer --- */
+.npc-footer {
+    text-align: center;
+    padding: 25px 20px;
+    margin-top: 30px;
+    border-top: 1px solid #dddddd;
+    background-color: #f8f8f8;
+    color: #555555;
+    font-size: 0.9em;
+}
+
+/* --- Contador de Medios (Estilos Iniciales - NO FIJO TODAVÍA) --- */
+.npc-media-counter {
+    background-color: rgba(51, 51, 51, 0.8); /* Negro semitransparente */
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 15px; /* Redondeado */
+    font-size: 0.8em;
+    text-align: center;
+    width: fit-content; /* Ajustar al contenido */
+    margin: 20px auto; /* Centrado para visibilidad inicial */
+    /* Los estilos para position:fixed se añadirán en el paso 6 del plan */
+}
+
+/* --- Estilos para cuando el header sea fijo (se activarán después) --- */
+/*
+body.npc-header-fixed .npc-main-content {
+    padding-top: 70px; /* Ajustar según la altura real del header
+}
+
+.npc-header.is-fixed {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+*/
+
+/* --- Estilos para cuando el contador sea fijo (se activarán después) --- */
+/*
+.npc-media-counter.is-fixed {
+    position: fixed !important;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    margin: 0;
+}
+*/

@@ -2,96 +2,31 @@
 body {
     margin: 0;
     font-family: sans-serif;
-    line-height: 1.6;
-    /* Added to ensure body can scroll if content overflows viewport height,
-       which is necessary for position:fixed to behave as expected relative to viewport. */
-    min-height: 101vh; /* Make body slightly taller than viewport */
+    /* Ensure there's enough height for body to enable scrolling if content is long */
+    min-height: 100vh;
+    padding-top: 70px; /* Padding to prevent content from being hidden under fixed header */
 }
 
-/* Project Header Styles */
-.project-header {
+/* Simplified Fixed Header Test Styles */
+.project-header-test {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%; /* Ensures it spans the full viewport width */
-    background-color: rgba(255, 255, 255, 0.9); /* Example background, slightly transparent */
-    padding: 15px 30px; /* Increased padding */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* Enhanced shadow */
-    z-index: 10000; /* Increased z-index just in case */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box; /* Ensures padding doesn't add to width */
-}
-
-.project-header .logo a,
-.project-header .back-to-projects a {
-    text-decoration: none;
-    color: #2c3e50; /* Darker color for better contrast */
-    font-weight: bold;
-    font-size: 1.1em;
-}
-
-/* Project Content Styles */
-.project-content {
-    /* Increased padding-top to be more than header height,
-       and padding-bottom for counter */
-    padding-top: 100px; /* Adjusted based on new header padding */
-    padding-bottom: 70px; /* Adjusted based on new counter padding */
-    /* Added some horizontal padding for content */
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.project-title {
+    width: 100%;
+    background-color: #f0f0f0; /* Light grey background */
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
     text-align: center;
-    margin-bottom: 40px; /* Increased margin */
-    color: #34495e; /* Title color */
+    font-size: 1.5em;
+    color: #333;
+    box-sizing: border-box;
 }
 
-/* Scroll Gallery Styles */
-.scroll-gallery {
-    display: flex;
-    overflow-x: auto; /* Enables horizontal scrolling */
-    overflow-y: hidden; /* Disables vertical scrolling on the gallery itself */
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    border: 1px solid #ddd; /* Slightly darker border */
-    margin: 0 auto; /* Centering gallery if it has a max-width or fixed width */
-    max-width: 90%; /* Example: constrain gallery width */
-    background-color: #f9f9f9; /* Light background for gallery */
-    padding: 10px; /* Padding inside gallery */
-    height: 500px; /* Explicit height for the gallery */
-}
-
-.scroll-gallery img {
-    /* Ensure images don't exceed gallery height if they are very tall */
-    max-height: 480px; /* Max height considering gallery padding */
-    width: auto; /* Adjust width automatically to maintain aspect ratio */
-    min-width: 70%; /* Ensure images are reasonably large */
-    scroll-snap-align: center; /* Aligns items to the center of the snap container */
-    margin-right: 15px; /* Increased spacing */
-    flex-shrink: 0;
-    object-fit: contain; /* Ensures entire image is visible, scaled down if necessary */
-    border-radius: 4px; /* Slightly rounded corners for images */
-}
-
-.scroll-gallery img:last-child {
-    margin-right: 0;
-}
-
-/* Scroll Counter Styles */
-.scroll-counter {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%; /* Ensures it spans the full viewport width */
-    background-color: rgba(255, 255, 255, 0.9); /* Example background, slightly transparent */
-    padding: 15px 30px; /* Increased padding */
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.15); /* Enhanced shadow */
-    z-index: 10000; /* Increased z-index */
-    text-align: center;
-    font-size: 1.2em;
-    color: #2c3e50; /* Darker text color */
-    box-sizing: border-box; /* Ensures padding doesn't add to width */
+/* Content Styles for Test */
+.content-test {
+    padding: 20px;
+    /* Adding a lot of height to force scrollbars */
+    height: 2000px; /* Force vertical scrollbar */
+    background-color: #fff;
 }

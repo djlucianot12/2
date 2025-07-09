@@ -5,8 +5,8 @@ body.project-page {
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    opacity: 0; /* Restaurado para animación de entrada */
-    transform: scale(0.95) translateY(20px); /* Restaurado para animación de entrada */
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
 }
 
 body.project-page.page-transition-in {
@@ -16,13 +16,13 @@ body.project-page.page-transition-in {
 }
 
 .project-detail-header {
-    position: fixed;
+    position: fixed !important; /* Forzar fixed */
     top: 0;
     left: 0;
     width: 100%;
     padding: 25px 0;
     background-color: rgba(255, 255, 255, 0.9);
-    z-index: 1000;
+    z-index: 1001 !important; /* Aumentado y forzado z-index */
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
@@ -66,7 +66,7 @@ body.project-page.page-transition-in {
 .project-detail-container {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 140px 40px 60px;
+    padding: 140px 40px 60px; /* Ajustado para la altura del header */
     background-color: #fff;
     min-height: calc(100vh - 200px);
 }
@@ -74,7 +74,7 @@ body.project-page.page-transition-in {
 .project-title-section {
     text-align: center;
     margin-bottom: 60px;
-    padding-top: 20px;
+    padding-top: 20px; /* Espacio relativo al .project-detail-container, no al header fijo */
 }
 
 .project-title-section h1 {
@@ -111,7 +111,7 @@ body.project-page.page-transition-in {
 }
 
 .media-counter-container {
-    position: fixed;
+    position: fixed !important; /* Forzar fixed */
     bottom: 30px;
     right: 40px;
     background-color: rgba(37, 37, 37, 0.8);
@@ -120,16 +120,15 @@ body.project-page.page-transition-in {
     border-radius: 5px;
     font-size: 1.1rem;
     font-weight: 500;
-    z-index: 1000;
+    z-index: 1001 !important; /* Aumentado y forzado z-index, igual o mayor que el header */
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    /* border: 1px solid orange; */ /* BORDE DE DEPURACIÓN ELIMINADO */
 }
 
 #media-current-index {
-    /* border: 1px dashed red; */ /* BORDE DE DEPURACIÓN ELIMINADO */
+    /* Estilos si son necesarios, pero los bordes de depuración se quitarán */
 }
 #media-total-count {
-    /* border: 1px dashed blue; */ /* BORDE DE DEPURACIÓN ELIMINADO */
+    /* Estilos si son necesarios, pero los bordes de depuración se quitarán */
 }
 
 
@@ -178,7 +177,8 @@ body.project-page.page-transition-in {
     }
 
     .project-detail-container {
-        padding: 100px 15px 40px;
+        /* Ajustar padding-top si la altura del header cambia significativamente en móviles */
+        padding: 120px 15px 40px; /* Asumiendo que el header fijo en móvil es más pequeño */
     }
     .project-title-section h1 {
         font-size: 2rem;

@@ -33,11 +33,15 @@ img {
     padding: 20px;
     box-shadow: 0 0 15px rgba(0,0,0,0.05); /* Sombra sutil para el contenedor principal */
     /* Añadir padding-top para compensar la altura del header fijo */
-    /* La altura exacta del header puede variar, 60-80px es un estimado común.
-       Se puede calcular midiendo la altura del header en las herramientas de desarrollo.
-       Asumamos que el header tiene unos 67px de alto (15px padding + ~37px linea + 15px padding).
-       Daremos un poco más para estar seguros. */
-    padding-top: 80px;
+    /* La altura exacta del header puede variar, 60-80px es un estimado común. */
+    /* Se calculará midiendo la altura del header en las herramientas de desarrollo. */
+    /* Asumamos que el header tiene unos 57px de alto (15px padding + 24px linea + 15px padding + 1px borde). */
+    /* Daremos un poco más para estar seguros: 70px. */
+    padding-top: 70px;
+    /* Añadir padding-bottom para compensar la altura del contador fijo si fuera necesario */
+    /* Si el contador es pequeño y en una esquina, usualmente no solapa contenido principal.
+       Pero si fuera un banner inferior, aquí se añadiría padding-bottom.
+       Por ahora, lo dejamos así ya que el contador es pequeño. */
 }
 
 /* --- Header (Fijo) --- */
@@ -60,6 +64,20 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.ptv2-header-left {
+    display: flex;
+    align-items: center;
+}
+
+.ptv2-header-right {
+    /* Para alinear la fecha a la derecha */
+}
+
+.ptv2-project-date {
+    font-size: 0.9em;
+    color: #6c757d; /* Un color grisáceo */
 }
 
 .ptv2-logo {
@@ -175,4 +193,8 @@ img {
     width: fit-content; /* Ajustar al contenido */
     margin: 20px auto; /* Centrado temporalmente */
     /* Estilos para fijarlo se añadirán después */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000; /* Igual que el header para consistencia, o mayor si es necesario */
 }

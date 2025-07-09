@@ -1,0 +1,75 @@
+/* Basic body reset */
+body {
+    margin: 0;
+    font-family: sans-serif;
+    line-height: 1.6;
+}
+
+/* Project Header Styles */
+.project-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* Example background */
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-header .logo a,
+.project-header .back-to-projects a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Project Content Styles */
+.project-content {
+    padding-top: 80px; /* Adjust based on header height */
+    padding-bottom: 80px; /* Adjust based on counter height */
+}
+
+.project-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Scroll Gallery Styles */
+.scroll-gallery {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    border: 1px solid #eee; /* For visualization */
+    margin: 0 20px;
+}
+
+.scroll-gallery img {
+    width: 80%; /* Adjust as needed */
+    height: auto;
+    scroll-snap-align: center;
+    margin-right: 10px; /* Spacing between images */
+    flex-shrink: 0; /* Prevent images from shrinking */
+}
+
+.scroll-gallery img:last-child {
+    margin-right: 0;
+}
+
+/* Scroll Counter Styles */
+.scroll-counter {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* Example background */
+    padding: 10px 20px;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+    text-align: center;
+    font-size: 1.2em;
+}

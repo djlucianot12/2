@@ -167,16 +167,25 @@ a:hover {
 .npc-media-counter {
     background-color: rgba(51, 51, 51, 0.8); /* Negro semitransparente */
     color: #ffffff;
-    padding: 6px 12px;
-    border-radius: 15px; /* Redondeado */
-    font-size: 0.8em;
+    /* padding: 6px 12px; */ /* Ajustaremos padding para el círculo */
+    border-radius: 50%; /* Hacerlo circular */
+    font-size: 0.9em;
     text-align: center;
-    width: fit-content; /* Ajustar al contenido */
-    /* margin: 20px auto; */ /* Eliminado para que no interfiera con fixed */
-    position: fixed !important; /* Forzar posición fija */
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000; /* Consistente con el header */
+    width: 48px; /* Aumentado ligeramente para más espacio */
+    height: 48px; /* Aumentado ligeramente para más espacio */
+    padding: 0; /* Resetear padding por si acaso */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed !important;
+    bottom: 30px; /* Un poco más arriba */
+    right: 30px;  /* Un poco más a la izquierda */
+    z-index: 1000;
+    line-height: 1; /* Para ayudar al centrado vertical del texto */
+}
+
+.npc-media-counter span {
+    display: inline-block; /* Para mejor control si es necesario */
 }
 
 /* Comentarios de secciones .is-fixed eliminados ya que los estilos se aplican directamente ahora */

@@ -102,52 +102,89 @@
     </script>
     <script src="../assets/js/new_project_counter.js" defer></script>
     <script>
-    // Script de reseteo agresivo (copiado de new_project_core.html)
-    function applyAggressiveResets() {
+    // Script de reseteo agresivo
+    function applyAggressiveResets(logPrefix = '') {
         const elementsToReset = [
-            { el: document.documentElement, name: '<html>' },
-            { el: document.body, name: '<body>' },
-            { el: document.getElementById('wrapper'), name: '#wrapper' },
-            { el: document.getElementById('page'), name: '#page' },
-            { el: document.getElementById('contents'), name: '#contents' }
+            { selector: 'html', name: '<html>' },
+            { selector: 'body', name: '<body>' },
+            { selector: '#wrapper', name: '#wrapper' },
+            { selector: '#page', name: '#page' },
+            { selector: '#contents', name: '#contents' }
         ];
-        console.log('--- INICIO SCRIPT DE RESETEO AGRESIVO (desde página de proyecto) ---');
+        // console.log(`${logPrefix}--- INICIO SCRIPT RESETEO ---`);
+        let changesMade = false;
         elementsToReset.forEach(item => {
-            if (item.el) {
-                console.log(`Reseteando estilos para: ${item.name}`);
-                item.el.style.setProperty('transform', 'none', 'important');
-                item.el.style.setProperty('filter', 'none', 'important');
-                item.el.style.setProperty('perspective', 'none', 'important');
-                const currentOverflowY = window.getComputedStyle(item.el).overflowY;
-                if (currentOverflowY === 'hidden' || item.name === '<body>' || item.name === '#wrapper' || item.name === '#page' || item.name === '#contents') {
-                    item.el.style.setProperty('overflow', 'auto', 'important');
-                    item.el.style.setProperty('overflow-y', 'auto', 'important');
-                    console.log(`  - ${item.name}: overflow/overflow-y forzado a 'auto !important'`);
+            const el = document.querySelector(item.selector); // Usar querySelector para html y body también
+            if (el) {
+                let elChanged = false;
+                if (window.getComputedStyle(el).transform !== 'none') {
+                    el.style.setProperty('transform', 'none', 'important');
+                    elChanged = true;
                 }
-            } else {
-                console.log(`Elemento no encontrado para reseteo: ${item.name}`);
+                if (window.getComputedStyle(el).filter !== 'none') {
+                    el.style.setProperty('filter', 'none', 'important');
+                    elChanged = true;
+                }
+                if (window.getComputedStyle(el).perspective !== 'none') { // 'none' es el valor inicial para perspective
+                    el.style.setProperty('perspective', 'none', 'important');
+                    elChanged = true;
+                }
+
+                const currentOverflowY = window.getComputedStyle(el).overflowY;
+                const currentOverflowX = window.getComputedStyle(el).overflowX;
+
+                if (currentOverflowY === 'hidden') {
+                    el.style.setProperty('overflow-y', 'auto', 'important');
+                    elChanged = true;
+                }
+                 if (currentOverflowX === 'hidden' && (item.name === '#wrapper' || item.name === '#page' || item.name === '#contents')) {
+                    // Solo tocamos overflow-x para los wrappers internos si es estrictamente necesario
+                    // y podría ser mejor dejarlo si el diseño lo requiere.
+                    // Por ahora, nos enfocamos en overflow-y para el scroll principal.
+                }
+                // Forzar overflow en body y wrappers principales si no es 'auto' o 'scroll' o 'visible'
+                if (item.name === '<body>' || item.name === '#wrapper' || item.name === '#page' || item.name === '#contents') {
+                    if (currentOverflowY !== 'auto' && currentOverflowY !== 'scroll' && currentOverflowY !== 'visible') {
+                         el.style.setProperty('overflow-y', 'auto', 'important');
+                         elChanged = true;
+                    }
+                     if (currentOverflowX !== 'auto' && currentOverflowX !== 'scroll' && currentOverflowX !== 'visible') {
+                         // el.style.setProperty('overflow-x', 'auto', 'important');
+                         // elChanged = true;
+                    }
+                }
+                if (elChanged) {
+                    console.log(`${logPrefix}  - Estilos de reseteo aplicados a: ${item.name}`);
+                    changesMade = true;
+                }
             }
         });
-        console.log('--- FIN SCRIPT DE RESETEO AGRESIVO (desde página de proyecto) ---');
+        // if (changesMade) console.log(`${logPrefix}--- FIN SCRIPT RESETEO ---`);
     }
+
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOMContentLoaded (página de proyecto) - Ejecutando reseteo agresivo.');
-        applyAggressiveResets();
+        console.log('DOM fully loaded and parsed. Applying initial aggressive reset.');
+        applyAggressiveResets('INIT: ');
     });
-    let attemptsProjectPage = 0;
-    const intervalIdProjectPage = setInterval(function() {
-        console.log(`Intento de reseteo periódico (página de proyecto) #${attemptsProjectPage + 1}`);
-        applyAggressiveResets();
-        attemptsProjectPage++;
-        if (attemptsProjectPage >= 30) { // Intentar por 3 segundos
-            clearInterval(intervalIdProjectPage);
-            console.log('Reseteo periódico (página de proyecto) finalizado.');
+
+    let resetAttempts = 0;
+    const resetInterval = 50; // ms
+    const totalResetDuration = 3000; // ms
+    const maxAttempts = totalResetDuration / resetInterval;
+
+    const intervalId = setInterval(function() {
+        applyAggressiveResets(`INTERVAL #${resetAttempts + 1}: `);
+        resetAttempts++;
+        if (resetAttempts >= maxAttempts) {
+            clearInterval(intervalId);
+            console.log('Periodic aggressive reset attempts finished.');
+            // Un último intento un poco después para cualquier script de carga tardía
+            setTimeout(() => {
+                console.log('Final late aggressive reset attempt.');
+                applyAggressiveResets('LATE FINAL: ');
+            }, 500);
         }
-    }, 100);
-    setTimeout(function() {
-        console.log('Reseteo agresivo tardío (3s) (página de proyecto).');
-        applyAggressiveResets();
-    }, 3000);
+    }, resetInterval);
     </script>
 </body>
 </html>

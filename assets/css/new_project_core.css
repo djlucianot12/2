@@ -27,12 +27,12 @@ a:hover {
 
 /* --- Contenedor Principal del Contenido --- */
 .npc-main-content {
-    max-width: 900px; /* Ancho máximo para el contenido del proyecto */
+    max-width: 1140px; /* Aumentado para imágenes/videos más grandes */
     margin: 0 auto;   /* Centrar el contenido */
     padding: 20px;    /* Padding alrededor del contenido */
     /* Padding-top para compensar la altura del header fijo.
        Altura estimada del header: (padding 10px*2) + font-size ~22px + border 1px = ~43px.
-       Usaremos 60px para dar un margen. */
+       Mantenemos 60px por ahora, ajustar si es necesario. */
     padding-top: 60px;
 }
 
@@ -102,27 +102,27 @@ a:hover {
 }
 
 .npc-media-item {
-    margin-bottom: 30px; /* Espacio entre cada imagen/video */
-    background-color: #fdfdfd; /* Un fondo muy sutil para cada item */
-    padding: 10px;
-    border: 1px solid #f0f0f0;
-    border-radius: 4px;
+    margin-bottom: 40px; /* Aumentar un poco el espacio entre ítems grandes */
+    /* Eliminado padding, background-color y border para que la imagen/video ocupe todo */
 }
 
 .npc-media-item img {
-    border-radius: 3px; /* Bordes ligeramente redondeados para las imágenes */
-    margin: 0 auto 8px auto; /* Centrar imagen y espacio para caption */
+    width: 100%; /* Ocupar todo el ancho del .npc-media-item (que es 100% del .npc-main-content) */
+    height: auto; /* Mantener proporción */
+    border-radius: 3px;
+    margin: 0 auto 10px auto; /* Espacio para caption y centrado (aunque width 100% lo expande) */
+    /* max-width ya no es necesario aquí si queremos que use el 100% del contenedor padre */
 }
 
 .npc-video-wrapper {
+    width: 100%; /* Ocupar todo el ancho del .npc-media-item */
     position: relative;
-    padding-bottom: 56.25%; /* Proporción 16:9 para video */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
-    max-width: 100%;
-    background: #000000; /* Fondo negro para el wrapper del video */
+    background: #000000;
     border-radius: 3px;
-    margin-bottom: 8px;
+    margin: 0 auto 10px auto; /* Espacio para caption y centrado */
 }
 
 .npc-video-wrapper iframe {

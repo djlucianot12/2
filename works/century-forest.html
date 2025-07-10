@@ -101,20 +101,21 @@
     </script>
     <script src="../assets/js/new_project_counter.js" defer></script>
     <script>
-    // Script de reseteo agresivo
+    // Script de reseteo agresivo (Versión más limpia)
     function applyAggressiveResets(logPrefix = '') {
         const elementsToReset = [
             { selector: 'html', name: '<html>' },
             { selector: 'body', name: '<body>' },
-            { selector: '#wrapper', name: '#wrapper' },
-            { selector: '#page', name: '#page' },
-            { selector: '#contents', name: '#contents' }
+            { selector: '#wrapper', name: '#wrapper' }, // Asumiendo que #wrapper es el problemático
+            { selector: '#page', name: '#page' },       // Incluir por si acaso
+            { selector: '#contents', name: '#contents' } // Incluir por si acaso
         ];
         let changesMadeThisRun = false;
         elementsToReset.forEach(item => {
             const el = document.querySelector(item.selector);
             if (el) {
                 let elChanged = false;
+                // Solo intentamos cambiar si el valor computado no es 'none' o el deseado
                 if (window.getComputedStyle(el).transform !== 'none') {
                     el.style.setProperty('transform', 'none', 'important');
                     elChanged = true;
@@ -127,50 +128,51 @@
                     el.style.setProperty('perspective', 'none', 'important');
                     elChanged = true;
                 }
+
+                const currentOverflow = window.getComputedStyle(el).overflow;
                 const currentOverflowY = window.getComputedStyle(el).overflowY;
-                if (currentOverflowY === 'hidden' ||
-                    ((item.name === '<body>' || item.name === '#wrapper' || item.name === '#page' || item.name === '#contents') &&
-                     (currentOverflowY !== 'auto' && currentOverflowY !== 'scroll' && currentOverflowY !== 'visible'))) {
-                    el.style.setProperty('overflow-y', 'auto', 'important');
-                    elChanged = true;
+
+                // Solo forzar overflow si es estrictamente 'hidden' y es un wrapper principal o body
+                if (item.name === '<body>' || item.name === '#wrapper' || item.name === '#page' || item.name === '#contents') {
+                    if (currentOverflow === 'hidden' || currentOverflowY === 'hidden') {
+                         el.style.setProperty('overflow', 'auto', 'important');
+                         el.style.setProperty('overflow-y', 'auto', 'important');
+                         elChanged = true;
+                    }
                 }
-                 if (item.name === '<body>' || item.name === '#wrapper' || item.name === '#page' || item.name === '#contents') {
-                     if (window.getComputedStyle(el).overflow !== 'auto' && window.getComputedStyle(el).overflow !== 'scroll' && window.getComputedStyle(el).overflow !== 'visible') {
-                        el.style.setProperty('overflow', 'auto', 'important');
-                        elChanged = true;
-                     }
-                 }
+
                 if (elChanged) {
                     console.log(`${logPrefix}Reseteo aplicado a: ${item.name}`);
                     changesMadeThisRun = true;
                 }
             }
         });
+        // No loguear el fin de cada ciclo para reducir ruido
         // if (changesMadeThisRun) console.log(`${logPrefix}Fin del ciclo de reseteo.`);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('Proyecto: DOMContentLoaded - Reseteo agresivo inicial.');
+        console.log('Proyecto: DOMContentLoaded - Aplicando reseteo inicial.');
         applyAggressiveResets('INIT: ');
     });
 
-    let resetAttempts = 0;
-    const resetInterval = 100; // ms
-    const totalResetDuration = 3000; // ms
-    const maxAttempts = totalResetDuration / resetInterval;
+    let resetIntervalAttempts = 0;
+    const resetIntervalMs = 100;
+    const totalResetDurationMs = 3000;
+    const maxResetAttempts = totalResetDurationMs / resetIntervalMs;
 
-    const intervalId = setInterval(function() {
-        applyAggressiveResets(`INTERVAL #${resetAttempts + 1}: `);
-        resetAttempts++;
-        if (resetAttempts >= maxAttempts) {
-            clearInterval(intervalId);
-            console.log('Proyecto: Reseteo periódico finalizado.');
+    const aggressiveResetIntervalId = setInterval(function() {
+        applyAggressiveResets(`INTERVAL #${resetIntervalAttempts + 1}: `);
+        resetIntervalAttempts++;
+        if (resetIntervalAttempts >= maxResetAttempts) {
+            clearInterval(aggressiveResetIntervalId);
+            console.log('Proyecto: Reseteo periódico por intervalo finalizado.');
             setTimeout(() => {
-                console.log('Proyecto: Reseteo agresivo tardío final.');
+                console.log('Proyecto: Aplicando reseteo agresivo tardío final.');
                 applyAggressiveResets('LATE FINAL: ');
-            }, 500);
+            }, 500); // Un último intento después de que todo debería haber terminado
         }
-    }, resetInterval);
+    }, resetIntervalMs);
     </script>
 </body>
 </html>

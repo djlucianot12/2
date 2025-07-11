@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proud Rokakoen</title> <!-- Título Específico -->
+    <title>Proud Rokakoen</title>
     <link rel="stylesheet" href="../assets/css/new_project_core.css">
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon.png">
@@ -24,14 +24,14 @@
                 </nav>
             </div>
             <div class="npc-header-right">
-                <span class="npc-project-date">Fecha Proyecto Proud Rokakoen</span> <!-- Fecha Específica -->
+                <span class="npc-project-date">Fecha Proyecto Proud Rokakoen</span>
             </div>
         </div>
     </header>
 
     <main class="npc-main-content">
         <section class="npc-project-title-section">
-            <h1>Proud Rokakoen</h1> <!-- Título Específico -->
+            <h1>Proud Rokakoen</h1>
         </section>
 
         <section class="npc-media-gallery">
@@ -58,17 +58,13 @@
         <p>&copy; <span id="npc-current-year"></span> LT Studio Desing. Todos los derechos reservados.</p>
     </footer>
 
-    <div class="npc-media-counter-wrapper">
-        <div class="npc-current-number-display">
-            <div class="npc-digits-view is-active"> <!-- Suponiendo que view-a es la visible por defecto -->
-                <span class="npc-digit-tens">0</span><span class="npc-digit-ones">1</span>
-            </div>
-            <div class="npc-digits-view">
-                <span class="npc-digit-tens">0</span><span class="npc-digit-ones">1</span>
-            </div>
-        </div>
+    <div class="npc-media-counter">
+        <span id="npc-current-media">01</span>
         <span class="npc-separator">/</span>
-        <span id="npc-total-media" class="npc-total-digits">10</span>
+        <span id="npc-total-media">10</span>
+        <div class="npc-progress-bar-container">
+            <div class="npc-progress-bar-fill" id="npc-progress-fill"></div>
+        </div>
     </div>
 
     <script>

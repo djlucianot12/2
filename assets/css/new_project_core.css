@@ -1,175 +1,72 @@
 /* assets/css/new_project_core.css */
-
-/* --- Reseteo Básico y Estilos Globales Mínimos --- */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #ffffff;
-    color: #333333;
+    margin: 0; padding: 0; font-family: Arial, sans-serif; line-height: 1.6;
+    background-color: #ffffff; color: #333333;
 }
+img { max-width: 100%; height: auto; display: block; }
+a { color: #007bff; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* --- Contenedor Principal del Contenido --- */
 .npc-main-content {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 20px;
-    padding-top: 75px; /* Espacio para el header fijo (altura header + margen) */
+    max-width: 1140px; margin: 0 auto; padding: 20px; padding-top: 75px;
 }
-
-/* --- Header (Fijo) --- */
 .npc-header {
-    background-color: #f8f8f8;
-    padding: 15px 25px; /* Un poco más de padding */
-    border-bottom: 1px solid #dddddd;
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    box-sizing: border-box;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #f8f8f8; padding: 15px 25px; border-bottom: 1px solid #dddddd;
+    position: fixed !important; top: 0; left: 0; width: 100%;
+    z-index: 1000; box-sizing: border-box; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
 .npc-header-content {
-    max-width: 1140px; /* Coincidir con npc-main-content */
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    max-width: 1140px; margin: 0 auto; display: flex;
+    justify-content: space-between; align-items: center;
 }
-
-.npc-header-left {
-    display: flex;
-    align-items: center;
-}
-
+.npc-header-left { display: flex; align-items: center; }
 .npc-logo {
-    font-size: 1.6em; /* Un poco más grande */
-    font-weight: bold;
-    color: #333333;
-    margin-right: 25px; /* Más espacio */
+    font-size: 1.6em; font-weight: bold; color: #333333; margin-right: 25px;
 }
-
-.npc-logo:hover {
-    text-decoration: none;
-}
-
-.npc-nav-link {
-    color: #555555;
-    font-size: 0.95em;
-}
-
-.npc-project-date {
-    font-size: 0.9em;
-    color: #777777;
-}
-
-/* --- Título del Proyecto --- */
+.npc-logo:hover { text-decoration: none; }
+.npc-nav-link { color: #555555; font-size: 0.95em; }
+.npc-project-date { font-size: 0.9em; color: #777777; }
 .npc-project-title-section {
-    text-align: center;
-    padding: 30px 0;
-    margin-bottom: 30px;
+    text-align: center; padding: 30px 0; margin-bottom: 30px;
     border-bottom: 1px solid #eeeeee;
 }
-
-.npc-project-title-section h1 {
-    margin: 0;
-    font-size: 2.4em;
-    font-weight: 600;
-}
-
-/* --- Galería de Medios (Disposición Vertical) --- */
-.npc-media-gallery {
-    margin-bottom: 30px;
-}
-
-.npc-media-item {
-    margin-bottom: 40px;
-}
-
+.npc-project-title-section h1 { margin: 0; font-size: 2.4em; font-weight: 600; }
+.npc-media-gallery { margin-bottom: 30px; }
+.npc-media-item { margin-bottom: 40px; }
 .npc-media-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-    margin: 0 auto 10px auto;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    width: 100%; height: auto; border-radius: 4px;
+    margin: 0 auto 10px auto; box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
-
 .npc-video-wrapper {
-    width: 100%;
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    background: #000000;
-    border-radius: 4px;
-    margin: 0 auto 10px auto;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    width: 100%; position: relative; padding-bottom: 56.25%; height: 0;
+    overflow: hidden; background: #000000; border-radius: 4px;
+    margin: 0 auto 10px auto; box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
-
 .npc-video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
 }
-
 .npc-media-caption {
-    font-size: 0.9em;
-    color: #555555;
-    text-align: center;
-    margin-top: 8px;
+    font-size: 0.9em; color: #555555; text-align: center; margin-top: 8px;
 }
-
-/* --- Descripción del Proyecto --- */
 .npc-project-description {
-    padding: 25px 0;
-    border-top: 1px solid #eeeeee;
-    margin-top: 30px;
+    padding: 25px 0; border-top: 1px solid #eeeeee; margin-top: 30px;
 }
-
-.npc-project-description h2 {
-    font-size: 1.7em;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-/* --- Footer --- */
+.npc-project-description h2 { font-size: 1.7em; margin-bottom: 20px; font-weight: 600; }
 .npc-footer {
-    text-align: center;
-    padding: 30px 20px;
-    margin-top: 40px;
-    border-top: 1px solid #dddddd;
-    background-color: #f8f8f8;
-    color: #555555;
-    font-size: 0.9em;
+    text-align: center; padding: 30px 20px; margin-top: 40px;
+    border-top: 1px solid #dddddd; background-color: #f8f8f8;
+    color: #555555; font-size: 0.9em;
 }
 
 /* --- Contador de Medios con Barra de Progreso --- */
-.npc-media-counter-wrapper { /* Cambiado de .npc-media-counter a -wrapper */
-    background-color: transparent; /* Sin fondo para el wrapper principal */
+.npc-media-counter-wrapper {
+    background-color: rgba(30, 30, 30, 0.9);
     color: #ffffff;
+    padding: 8px 15px;
+    border-radius: 20px;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: bold;
-    font-size: 13px; /* Tamaño base para los números */
+    font-size: 13px;
     display: flex;
     align-items: center;
     position: fixed !important;
@@ -181,36 +78,24 @@ a:hover {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-
-.npc-media-counter span { /* Estilo para los spans de números y separador */
-    display: inline-block;
-    line-height: 1; /* Para alineación vertical */
-}
-
-/* IDs específicos para los números si necesitan estilos particulares, aunque heredan de .npc-media-counter span */
 #npc-current-media,
 #npc-total-media {
-    /* Podrían tener algún padding o margin específico si es necesario */
+    display: inline-block;
+    line-height: 1;
+    color: #ffffff;
 }
-
-.npc-separator {
-    margin: 0 0.4em; /* Espacio alrededor del separador '/' */
-}
-
 .npc-progress-bar-container {
-    flex-grow: 1; /* Ocupa el espacio restante si el contador fuera más flexible en ancho */
-    width: 60px;  /* Ancho fijo para la barra de progreso */
-    height: 6px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
-    margin-left: 10px;
+    width: 60px;
+    height: 5px; /* Ligeramente más alta para mejor visibilidad */
+    background-color: rgba(255, 255, 255, 0.25); /* Fondo de la barra vacía */
+    border-radius: 2.5px;
+    margin: 0 10px; /* Espacio entre números y barra */
     overflow: hidden;
 }
-
 .npc-progress-bar-fill {
     height: 100%;
     width: 0%; /* Inicialmente vacía */
-    background-color: #ffffff;
-    border-radius: 3px;
-    transition: width 0.1s linear; /* Para la animación de llenado desde JS */
+    background-color: #ffffff; /* Barra llena blanca */
+    border-radius: 2.5px;
+    transition: width 0.1s linear; /* Transición suave para el llenado */
 }

@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function attemptScrollToItem(indexToShow) {
         const itemToScrollTo = mediaItems[indexToShow - 1];
         if (itemToScrollTo) {
-            console.log(`[NPC Counter DEBUG] AUTOPLAY: Intentando scroll a item #${indexToShow}. Elemento:`, itemToScrollTo);
-            itemToScrollTo.scrollIntoView({ behavior: 'auto', block: 'nearest' });
-            console.log(`[NPC Counter DEBUG] AUTOPLAY: scrollIntoView llamado para item #${indexToShow}.`);
+            console.log(`[NPC Counter DEBUG] AUTOPLAY: Intentando scroll SUAVE a item #${indexToShow}. Elemento:`, itemToScrollTo);
+            itemToScrollTo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            console.log(`[NPC Counter DEBUG] AUTOPLAY: scrollIntoView (smooth) llamado para item #${indexToShow}.`);
             // Forzar la actualización del contador inmediatamente después de intentar el scroll,
             // ya que el evento de scroll puede no ser detectado o ser anulado por isScrollingProgrammatically
             // que se setearía en el siguiente ciclo de eventos.

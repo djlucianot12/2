@@ -59,11 +59,16 @@
     </footer>
 
     <div class="npc-media-counter-wrapper">
-        <span id="npc-current-media">01</span>
-        <div class="npc-progress-bar-container">
-            <div class="npc-progress-bar-fill" id="npc-progress-fill"></div>
+        <div class="npc-current-number-display">
+            <div class="npc-digits-view is-active"> <!-- Suponiendo que view-a es la visible por defecto -->
+                <span class="npc-digit-tens">0</span><span class="npc-digit-ones">1</span>
+            </div>
+            <div class="npc-digits-view">
+                <span class="npc-digit-tens">0</span><span class="npc-digit-ones">1</span>
+            </div>
         </div>
-        <span id="npc-total-media">10</span>
+        <span class="npc-separator">/</span>
+        <span id="npc-total-media" class="npc-total-digits">10</span>
     </div>
 
     <script>

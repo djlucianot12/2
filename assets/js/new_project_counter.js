@@ -23,30 +23,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     totalMediaSpan.textContent = String(mediaItems.length).padStart(2, '0');
 
-    let currentMediaIndex = 0; // Iniciar en 0 para que la primera actualización (a 1) se detecte como cambio
+    let currentMediaIndex = 0;
     let autoplayTimeout;
-    const autoplayDuration = 4000; // 4 segundos
+    const autoplayDuration = 4000;
     let isAutoplayPaused = false;
-    let isScrollingProgrammatically = false; // Flag para controlar el scroll hecho por el script
+    let manualScrollTimeout;
 
     function attemptScrollToItem(indexToShow) {
-        const itemToScrollTo = mediaItems[indexToShow - 1]; // indexToShow es 1-based
+        const itemToScrollTo = mediaItems[indexToShow - 1];
         if (itemToScrollTo) {
-            isScrollingProgrammatically = true;
             console.log(`[NPC Counter DEBUG] AUTOPLAY: Intentando scroll a item #${indexToShow}. Elemento:`, itemToScrollTo);
-
-            itemToScrollTo.scrollIntoView({ behavior: 'auto', block: 'nearest' }); // Cambiado a 'auto' y 'nearest'
-
+            itemToScrollTo.scrollIntoView({ behavior: 'auto', block: 'nearest' });
             console.log(`[NPC Counter DEBUG] AUTOPLAY: scrollIntoView llamado para item #${indexToShow}.`);
-
-            setTimeout(() => {
-                // console.log(`[NPC Counter DEBUG] AUTOPLAY: Reseteando isScrollingProgrammatically para item #${indexToShow}.`);
-                isScrollingProgrammatically = false;
-                // Forzar una revisión del item actual después del scroll programado por si el evento no se disparó
-                // o no actualizó correctamente debido al flag.
-                // Esto es un poco un hack, idealmente el evento de scroll natural debería bastar.
-                // updateActiveMediaVisibility(); // Nombre de función hipotético
-            }, 1000); // Aumentado para dar más tiempo.
+            // Forzar la actualización del contador inmediatamente después de intentar el scroll,
+            // ya que el evento de scroll puede no ser detectado o ser anulado por isScrollingProgrammatically
+            // que se setearía en el siguiente ciclo de eventos.
+            // Sin embargo, esto podría ser prematuro si el scroll no ha terminado.
+            // Una mejor aproximación es que updateDisplay se llame DESPUÉS del scroll.
+            // Por ahora, confiaremos en que el evento de scroll se dispare, pero con logs.
         } else {
             console.warn(`[NPC Counter DEBUG] AUTOPLAY: No se encontró item para el índice ${indexToShow}`);
         }
@@ -55,12 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function startAutoplay() {
         clearTimeout(autoplayTimeout);
         if (isAutoplayPaused || mediaItems.length <= 1) {
+            // console.log('[NPC Counter DEBUG] Autoplay pausado o no necesario, no se inicia nuevo timer.');
             return;
         }
         console.log(`[NPC Counter DEBUG] AUTOPLAY: Iniciando timer para item actual ${currentMediaIndex}. Próximo en ${autoplayDuration}ms.`);
         autoplayTimeout = setTimeout(() => {
             if (isAutoplayPaused) {
-                // console.log('[NPC Counter DEBUG] Autoplay pausado en el momento del timeout.');
+                console.log('[NPC Counter DEBUG] Autoplay estaba pausado en el momento del timeout del autoplay.');
                 return;
             }
             let nextItemIndex = (currentMediaIndex % mediaItems.length) + 1;
@@ -69,85 +64,85 @@ document.addEventListener('DOMContentLoaded', function () {
         }, autoplayDuration);
     }
 
-    function updateDisplay(newIndex) {
-        // console.log(`[NPC Counter DEBUG] updateDisplay: Solicitado cambio a ${newIndex}. Actual: ${currentMediaIndex}`);
+    function updateDisplay(newIndex, triggeredByAutoplay = false) {
+        console.log(`[NPC Counter DEBUG] updateDisplay: Solicitado cambio a ${newIndex}. Actual: ${currentMediaIndex}. TriggeredByAutoplay: ${triggeredByAutoplay}`);
 
+        // Solo actualizar si el índice realmente cambia.
+        // Si es el mismo índice y la barra ya está al 100%, no hacer nada más que reiniciar el timer si es necesario.
         if (newIndex === currentMediaIndex && progressBarFill.style.width === '100%') {
-            // console.log(`[NPC Counter DEBUG] Mismo ítem (${newIndex}) y barra llena. Reiniciando timer.`);
-            startAutoplay();
+            if (!triggeredByAutoplay) { // Si fue scroll manual al mismo item, y la barra está llena, reiniciar timer.
+                 console.log(`[NPC Counter DEBUG] updateDisplay: Mismo ítem (${newIndex}), barra llena. Reiniciando timer.`);
+                startAutoplay();
+            }
             return;
         }
 
-        // Solo actualizar si el índice realmente cambia o si la barra no está llena (para el caso inicial)
-        if (newIndex !== currentMediaIndex || progressBarFill.style.width !== '100%') {
-            console.log(`[NPC Counter] ACTUALIZANDO display para item ${newIndex}. Anterior: ${currentMediaIndex}`);
-            currentMediaIndex = newIndex;
-            currentMediaSpan.textContent = String(currentMediaIndex).padStart(2, '0');
+        console.log(`[NPC Counter] ACTUALIZANDO display para item ${newIndex}. Anterior: ${currentMediaIndex}`);
+        currentMediaIndex = newIndex;
+        currentMediaSpan.textContent = String(currentMediaIndex).padStart(2, '0');
 
-            progressBarFill.style.transition = 'none';
-            progressBarFill.style.width = '0%';
+        progressBarFill.style.transition = 'none';
+        progressBarFill.style.width = '0%';
 
-            void progressBarFill.offsetWidth;
+        void progressBarFill.offsetWidth;
 
-            progressBarFill.style.transition = `width ${autoplayDuration / 1000}s linear`;
-            progressBarFill.style.width = '100%';
+        progressBarFill.style.transition = `width ${autoplayDuration / 1000}s linear`;
+        progressBarFill.style.width = '100%';
 
-            startAutoplay();
-        }
+        startAutoplay();
     }
 
     let scrollTicking = false;
     function handleManualScroll() {
-        if (isScrollingProgrammatically) {
-            // console.log('[NPC Counter DEBUG] Scroll programático en curso, handleManualScroll ignorado.');
-            return;
-        }
-        if (!scrollTicking) {
-            window.requestAnimationFrame(() => {
-                let mostVisibleItemIndex = 0;
-                let maxVisibility = -1;
-                const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        clearTimeout(manualScrollTimeout); // Limpiar timeout si el usuario sigue scrolleando
+        manualScrollTimeout = setTimeout(() => { // Esperar a que el scroll manual "termine"
+            if (!scrollTicking) {
+                window.requestAnimationFrame(() => {
+                    let mostVisibleItemIndex = 0;
+                    let maxVisibility = -1;
+                    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
 
-                mediaItems.forEach((item, index) => {
-                    const rect = item.getBoundingClientRect();
-                    if (rect.bottom <= 0 || rect.top >= viewportHeight) return;
-
-                    const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
-                    const itemHeight = item.offsetHeight;
-
-                    if (itemHeight > 0) {
-                        const visibilityPercentage = visibleHeight / itemHeight;
-                        if (visibilityPercentage > maxVisibility) {
-                            maxVisibility = visibilityPercentage;
-                            mostVisibleItemIndex = index;
-                        }
-                    }
-                });
-
-                let newIndexToShow = mostVisibleItemIndex + 1;
-                if (maxVisibility < 0.10 && mediaItems.length > 0) {
-                    let closestDistanceToCenter = Infinity;
-                    let tempClosestIndex = 0;
                     mediaItems.forEach((item, index) => {
                         const rect = item.getBoundingClientRect();
-                        const itemCenterInViewport = rect.top + (rect.height / 2);
-                        const distance = Math.abs((viewportHeight / 2) - itemCenterInViewport);
-                        if (distance < closestDistanceToCenter) {
-                            closestDistanceToCenter = distance;
-                            tempClosestIndex = index;
+                        if (rect.bottom <= 0 || rect.top >= viewportHeight) return;
+
+                        const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
+                        const itemHeight = item.offsetHeight;
+
+                        if (itemHeight > 0) {
+                            const visibilityPercentage = visibleHeight / itemHeight;
+                            if (visibilityPercentage > maxVisibility) {
+                                maxVisibility = visibilityPercentage;
+                                mostVisibleItemIndex = index;
+                            }
                         }
                     });
-                    newIndexToShow = tempClosestIndex + 1;
-                }
 
-                if (newIndexToShow !== currentMediaIndex) {
-                     console.log(`[NPC Counter DEBUG] Scroll manual detectó cambio. Nuevo ítem: ${newIndexToShow}.`);
-                    updateDisplay(newIndexToShow);
-                }
-                scrollTicking = false;
-            });
-            scrollTicking = true;
-        }
+                    let newIndexToShow = mostVisibleItemIndex + 1;
+                    if (maxVisibility < 0.10 && mediaItems.length > 0) {
+                        let closestDistanceToCenter = Infinity;
+                        let tempClosestIndex = 0;
+                        mediaItems.forEach((item, index) => {
+                            const rect = item.getBoundingClientRect();
+                            const itemCenterInViewport = rect.top + (rect.height / 2);
+                            const distance = Math.abs((viewportHeight / 2) - itemCenterInViewport);
+                            if (distance < closestDistanceToCenter) {
+                                closestDistanceToCenter = distance;
+                                tempClosestIndex = index;
+                            }
+                        });
+                        newIndexToShow = tempClosestIndex + 1;
+                    }
+
+                    if (newIndexToShow !== currentMediaIndex) {
+                         console.log(`[NPC Counter DEBUG] Scroll manual (debounced) detectó cambio. Nuevo ítem: ${newIndexToShow}.`);
+                        updateDisplay(newIndexToShow, false); // false indica que no fue por autoplay
+                    }
+                    scrollTicking = false;
+                });
+                scrollTicking = true;
+            }
+        }, 150); // Debounce para el scroll manual
     }
 
     window.addEventListener('scroll', handleManualScroll, { passive: true });
@@ -159,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
             clearTimeout(autoplayTimeout);
             isAutoplayPaused = true;
             const currentWidth = window.getComputedStyle(progressBarFill).width;
-            progressBarFill.style.transition = 'none';
+            progressBarFill.style.transition = 'none'; // Pausar animación de la barra
             progressBarFill.style.width = currentWidth;
             console.log('[NPC Counter] Autoplay PAUSADO por hover.');
         });
@@ -168,14 +163,16 @@ document.addEventListener('DOMContentLoaded', function () {
             if (mediaItems.length <= 1 || !isAutoplayPaused) return;
             isAutoplayPaused = false;
             console.log(`[NPC Counter] Autoplay REANUDADO post-hover. Reiniciando para item ${currentMediaIndex}.`);
+            // Forzar reinicio de la barra y el timer para el ítem actual
             const tempIndex = currentMediaIndex;
-            currentMediaIndex = -1;
-            updateDisplay(tempIndex);
+            currentMediaIndex = -1; // Para forzar que updateDisplay vea un cambio si el índice es el mismo
+            updateDisplay(tempIndex, false); // false indica que no fue por autoplay
         });
     }
 
+    // Llamada inicial para configurar el primer ítem
     setTimeout(() => {
         console.log('[NPC Counter] Llamada inicial a updateDisplay (250ms).');
-        updateDisplay(1);
+        updateDisplay(1, true); // true indica que es el inicio, como si fuera un autoplay para el primer item
     }, 250);
 });

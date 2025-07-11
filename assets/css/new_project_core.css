@@ -164,14 +164,12 @@ a:hover {
 }
 
 /* --- Contador de Medios con Barra de Progreso --- */
-.npc-media-counter {
-    background-color: rgba(30, 30, 30, 0.9);
+.npc-media-counter-wrapper { /* Cambiado de .npc-media-counter a -wrapper */
+    background-color: transparent; /* Sin fondo para el wrapper principal */
     color: #ffffff;
-    padding: 8px 15px;
-    border-radius: 20px;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 13px; /* Tamaño base para los números */
     display: flex;
     align-items: center;
     position: fixed !important;
